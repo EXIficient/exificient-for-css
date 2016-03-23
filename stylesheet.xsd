@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="stylesheet">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded" >
+        <xs:element name="cssStyleRule" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="selectorText" type="xs:string"/>
+              <xs:element name="style">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element ref="cssValue" />
+                    <xs:element name="property" type="xs:NCName"/>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cssCharsetRule" minOccurs="0">
+          <!-- TODO -->
+        </xs:element>
+        <xs:element name="cssFontFaceRule" minOccurs="0">
+          <!-- TODO -->
+        </xs:element>
+        <xs:element name="cssImportRule" minOccurs="0">
+          <!-- TODO -->
+        </xs:element>
+        <xs:element name="cssMediaRule" minOccurs="0">
+          <!-- TODO -->
+        </xs:element>
+        <xs:element name="cssPageRule" minOccurs="0">
+          <!-- TODO -->
+        </xs:element>
+        <xs:element name="cssUnknownRule" minOccurs="0">
+          <!-- TODO -->
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="cssValue">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="cssPrimitiveValue"/>
+        <xs:element ref="cssValueList"/>
+        <xs:element ref="cssInherit"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="cssValueList">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="cssPrimitiveValue"/>
+        <xs:element ref="cssValueList"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="cssInherit">
+    <xs:complexType/>
+  </xs:element>
+  
+  <xs:element name="cssPrimitiveValue" type="cssPrimitiveValueType"/>
+  
+  <xs:complexType name="cssPrimitiveValueType">
+    <xs:choice>
+      <xs:element name="cssUnknown" type="xs:string" />
+      <xs:element name="cssNumber" type="xs:double" />
+      <xs:element name="cssPercentage" type="xs:double" />
+      <xs:element name="cssEms" type="xs:double" />
+      <xs:element name="cssExs" type="xs:double" />
+      <xs:element name="cssPx" type="xs:double" />
+      <xs:element name="cssCm" type="xs:double" />
+      <xs:element name="cssMm" type="xs:double" />
+      <xs:element name="cssIn" type="xs:double" />
+      <xs:element name="cssPt" type="xs:double" />
+      <xs:element name="cssPc" type="xs:double" />
+      <xs:element name="cssDeg" type="xs:double" />
+      <xs:element name="cssRad" type="xs:double" />
+      <xs:element name="cssGrad" type="xs:double" />
+      <xs:element name="cssMs" type="xs:double" />
+      <xs:element name="cssS" type="xs:double" />
+      <xs:element name="cssHz" type="xs:double" />
+      <xs:element name="cssKhz" type="xs:double" />
+      <xs:element name="cssDimension" type="xs:double" />
+      <xs:element name="cssString" type="xs:string" />
+      <xs:element name="cssUri" type="xs:string" />
+      <xs:element name="cssIdent" type="xs:string" />
+      <xs:element name="cssAttr" type="xs:string" />
+      <xs:element name="cssCounter">
+        <xs:complexType>
+          <xs:sequence>
+            <!-- TODO what is required and what not -->
+            <xs:element name="identifier" type="xs:string"/>
+            <xs:element name="listStyle" type="xs:string"/>
+            <xs:element name="separator" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cssRect">
+        <xs:complexType>
+          <xs:sequence>
+            <!-- TODO what is required and what not -->
+            <xs:element name="top" type="cssPrimitiveValueType"/>
+            <xs:element name="right" type="cssPrimitiveValueType"/>
+            <xs:element name="bottom" type="cssPrimitiveValueType"/>
+            <xs:element name="left" type="cssPrimitiveValueType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cssRgbColor">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="r" type="xs:unsignedByte"/>
+            <xs:element name="g" type="xs:unsignedByte"/>
+            <xs:element name="b" type="xs:unsignedByte"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  
+
+</xs:schema>

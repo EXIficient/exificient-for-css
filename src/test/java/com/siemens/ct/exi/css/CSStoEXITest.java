@@ -60,5 +60,10 @@ public class CSStoEXITest extends TestCase {
 	public void testCSS3_1() throws FileNotFoundException, IOException, EXIException, SAXException, TransformerConfigurationException {
 		_test("data/css3_1.css");
 	}
+	
+	@Test
+	public void testW3C() throws FileNotFoundException, IOException, EXIException, SAXException, TransformerConfigurationException {
+		_test("data/w3c.css");
+	}
 
 }

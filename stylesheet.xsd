@@ -2,15 +2,21 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
   <xs:element name="stylesheet">
     <xs:complexType>
-      <xs:sequence minOccurs="0" maxOccurs="unbounded" >
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
         <xs:element name="cssStyleRule" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="selectorText" type="xs:string"/>
+              <!-- selectorText: one string vs. separate selectors -->
+              <!--  <xs:element name="selectorText" type="xs:string"/>  -->
+              <xs:element name="selectorText">
+                <xs:simpleType>
+                  <xs:list itemType="xs:string"/>
+                </xs:simpleType>
+              </xs:element>
               <xs:element name="style">
                 <xs:complexType>
                   <xs:choice maxOccurs="unbounded">
-                    <xs:element ref="cssValue" />
+                    <xs:element ref="cssValue"/>
                     <xs:element name="property" type="xs:NCName"/>
                   </xs:choice>
                 </xs:complexType>
@@ -39,7 +45,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  
+
   <xs:element name="cssValue">
     <xs:complexType>
       <xs:choice>
@@ -49,7 +55,7 @@
       </xs:choice>
     </xs:complexType>
   </xs:element>
-  
+
   <xs:element name="cssValueList">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -58,38 +64,38 @@
       </xs:choice>
     </xs:complexType>
   </xs:element>
-  
+
   <xs:element name="cssInherit">
     <xs:complexType/>
   </xs:element>
-  
+
   <xs:element name="cssPrimitiveValue" type="cssPrimitiveValueType"/>
-  
+
   <xs:complexType name="cssPrimitiveValueType">
     <xs:choice>
-      <xs:element name="cssUnknown" type="xs:string" />
-      <xs:element name="cssNumber" type="xs:double" />
-      <xs:element name="cssPercentage" type="xs:double" />
-      <xs:element name="cssEms" type="xs:double" />
-      <xs:element name="cssExs" type="xs:double" />
-      <xs:element name="cssPx" type="xs:double" />
-      <xs:element name="cssCm" type="xs:double" />
-      <xs:element name="cssMm" type="xs:double" />
-      <xs:element name="cssIn" type="xs:double" />
-      <xs:element name="cssPt" type="xs:double" />
-      <xs:element name="cssPc" type="xs:double" />
-      <xs:element name="cssDeg" type="xs:double" />
-      <xs:element name="cssRad" type="xs:double" />
-      <xs:element name="cssGrad" type="xs:double" />
-      <xs:element name="cssMs" type="xs:double" />
-      <xs:element name="cssS" type="xs:double" />
-      <xs:element name="cssHz" type="xs:double" />
-      <xs:element name="cssKhz" type="xs:double" />
-      <xs:element name="cssDimension" type="xs:double" />
-      <xs:element name="cssString" type="xs:string" />
-      <xs:element name="cssUri" type="xs:string" />
-      <xs:element name="cssIdent" type="xs:string" />
-      <xs:element name="cssAttr" type="xs:string" />
+      <xs:element name="cssUnknown" type="xs:string"/>
+      <xs:element name="cssNumber" type="xs:double"/>
+      <xs:element name="cssPercentage" type="xs:double"/>
+      <xs:element name="cssEms" type="xs:double"/>
+      <xs:element name="cssExs" type="xs:double"/>
+      <xs:element name="cssPx" type="xs:double"/>
+      <xs:element name="cssCm" type="xs:double"/>
+      <xs:element name="cssMm" type="xs:double"/>
+      <xs:element name="cssIn" type="xs:double"/>
+      <xs:element name="cssPt" type="xs:double"/>
+      <xs:element name="cssPc" type="xs:double"/>
+      <xs:element name="cssDeg" type="xs:double"/>
+      <xs:element name="cssRad" type="xs:double"/>
+      <xs:element name="cssGrad" type="xs:double"/>
+      <xs:element name="cssMs" type="xs:double"/>
+      <xs:element name="cssS" type="xs:double"/>
+      <xs:element name="cssHz" type="xs:double"/>
+      <xs:element name="cssKhz" type="xs:double"/>
+      <xs:element name="cssDimension" type="xs:double"/>
+      <xs:element name="cssString" type="xs:string"/>
+      <xs:element name="cssUri" type="xs:string"/>
+      <xs:element name="cssIdent" type="xs:string"/>
+      <xs:element name="cssAttr" type="xs:string"/>
       <xs:element name="cssCounter">
         <xs:complexType>
           <xs:sequence>
@@ -122,6 +128,6 @@
       </xs:element>
     </xs:choice>
   </xs:complexType>
-  
+
 
 </xs:schema>

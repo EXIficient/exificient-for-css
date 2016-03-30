@@ -43,6 +43,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import java.io.*;
+import java.util.StringTokenizer;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -156,6 +157,14 @@ public class CSStoXML {
 				{
 					printStartElement(th, URI, "selectorText");
 					printCharacters(th, styleRule.getSelectorText());
+//					// e.g, split body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, address
+//					StringTokenizer st = new StringTokenizer(styleRule.getSelectorText(), ",");
+//					while(st.hasMoreTokens()) {
+//						String text = st.nextToken();
+//						printStartElement(th, URI, "sel");
+//						printCharacters(th, text);
+//						printEndElement(th, URI, "sel");
+//					}
 					printEndElement(th, URI, "selectorText");
 
 					CSSStyleDeclaration style = styleRule.getStyle();

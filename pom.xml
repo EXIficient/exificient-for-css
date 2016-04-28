@@ -4,7 +4,7 @@
   <artifactId>exificient-for-css</artifactId>
   <name>EXIficient for CSS</name>
   <url>http://exificient.github.io/</url>
-  <version>0.9.6</version>
+  <version>0.9.7-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>EXIficient is an open source implementation of the W3C Efficient XML Interchange
     (EXI) format specification written in the Java programming language. The EXI format is a very
@@ -39,7 +39,7 @@
     <connection>scm:git:git://github.com/EXIficient/exificient-for-css.git</connection>
 	<developerConnection>scm:git:https://github.com/EXIficient/exificient-for-css.git</developerConnection>
     <url>https://github.com/EXIficient/exificient-for-css</url>
-    <tag>v0.9.6</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <dependencies>

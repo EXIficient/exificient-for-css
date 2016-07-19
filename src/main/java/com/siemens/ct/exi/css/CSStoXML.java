@@ -27,16 +27,22 @@ import com.steadystate.css.parser.CSSOMParser;
 
 import org.w3c.css.sac.InputSource;
 import org.w3c.dom.DOMException;
+import org.w3c.dom.css.CSSCharsetRule;
+import org.w3c.dom.css.CSSFontFaceRule;
+import org.w3c.dom.css.CSSImportRule;
 import org.w3c.dom.css.CSSMediaRule;
+import org.w3c.dom.css.CSSPageRule;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSStyleSheet;
 import org.w3c.dom.css.CSSRuleList;
 import org.w3c.dom.css.CSSRule;
 import org.w3c.dom.css.CSSStyleRule;
 import org.w3c.dom.css.CSSStyleDeclaration;
+import org.w3c.dom.css.CSSUnknownRule;
 import org.w3c.dom.css.CSSValue;
 import org.w3c.dom.css.CSSValueList;
 import org.w3c.dom.css.RGBColor;
+import org.w3c.dom.stylesheets.MediaList;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
@@ -148,6 +154,21 @@ public class CSStoXML {
 		printStartElement(th, URI, "stylesheet");
 
 		CSSRuleList ruleList = stylesheet.getCssRules();
+		generateCSSRuleList(ruleList, th);
+
+		printEndElement(th, URI, "stylesheet");
+		th.endDocument();
+	}
+	
+	protected void generateMediaList(MediaList mediaList, TransformerHandler th) throws SAXException {
+		printStartElement(th, URI, "mediaList");
+		for(int k=0;k<mediaList.getLength(); k++) {
+			printCharacters(th, mediaList.item(k));
+		}
+		printEndElement(th, URI, "mediaList");
+	}
+	
+	protected void generateCSSRuleList(CSSRuleList ruleList, TransformerHandler th) throws SAXException {
 		for (int i = 0; i < ruleList.getLength(); i++) {
 			CSSRule rule = ruleList.item(i);
 			switch (rule.getType()) {
@@ -171,6 +192,7 @@ public class CSStoXML {
 					printStartElement(th, URI, "style");
 					for (int j = 0; j < style.getLength(); j++) {
 						String property = style.item(j);
+						
 						printStartElement(th, URI, "property");
 						printCharacters(th, property);
 						printEndElement(th, URI, "property");
@@ -192,19 +214,29 @@ public class CSStoXML {
 				printEndElement(th, URI, "cssStyleRule");
 				break;
 			case CSSRule.CHARSET_RULE:
+				CSSCharsetRule charsetRule = (CSSCharsetRule) rule;
 				printStartElement(th, URI, "cssCharsetRule");
-				System.err.println("Unsupported ruleType = " + "CHARSET_RULE");
+				printCharacters(th, charsetRule.getEncoding());
 				printEndElement(th, URI, "cssCharsetRule");
 				break;
 			case CSSRule.FONT_FACE_RULE:
+				CSSFontFaceRule fontFaceRule = (CSSFontFaceRule) rule;
 				printStartElement(th, URI, "cssFontFaceRule");
 				System.err
 						.println("Unsupported ruleType = " + "FONT_FACE_RULE");
 				printEndElement(th, URI, "cssFontFaceRule");
 				break;
 			case CSSRule.IMPORT_RULE:
+				CSSImportRule importRule = (CSSImportRule) rule;
 				printStartElement(th, URI, "cssImportRule");
-				System.err.println("Unsupported ruleType = " + "IMPORT_RULE");
+				{
+					printStartElement(th, URI, "href");
+					printCharacters(th, importRule.getHref());
+					printEndElement(th, URI, "href");
+				}
+				
+				generateMediaList(importRule.getMedia(), th);
+				
 				printEndElement(th, URI, "cssImportRule");
 				break;
 			case CSSRule.MEDIA_RULE:
@@ -212,15 +244,23 @@ public class CSStoXML {
 				// System.err.println(mediaRule.getMedia());
 				// System.err.println(mediaRule.getCssRules());
 				printStartElement(th, URI, "cssMediaRule");
-				System.err.println("Unsupported ruleType = " + "MEDIA_RULE");
+				
+				generateMediaList(mediaRule.getMedia(), th);
+					
+				CSSRuleList rl = mediaRule.getCssRules();
+				{
+					generateCSSRuleList(rl, th);
+				}
 				printEndElement(th, URI, "cssMediaRule");
 				break;
 			case CSSRule.PAGE_RULE:
+				CSSPageRule pageRule = (CSSPageRule) rule;
 				printStartElement(th, URI, "cssPageRule");
 				System.err.println("Unsupported ruleType = " + "PAGE_RULE");
 				printEndElement(th, URI, "cssPageRule");
 				break;
 			case CSSRule.UNKNOWN_RULE:
+				CSSUnknownRule unknownRule = (CSSUnknownRule) rule;
 				printStartElement(th, URI, "cssUnknownRule");
 				System.err.println("Unsupported ruleType = " + "UNKNOWN_RULE");
 				printEndElement(th, URI, "cssUnknownRule");
@@ -230,9 +270,6 @@ public class CSStoXML {
 						+ rule.getType());
 			}
 		}
-
-		printEndElement(th, URI, "stylesheet");
-		th.endDocument();
 	}
 	
 	protected void printStartElement(ContentHandler th, String uri, String localName) throws SAXException {
@@ -308,7 +345,13 @@ public class CSStoXML {
 		case CSSPrimitiveValue.CSS_IDENT:
 		case CSSPrimitiveValue.CSS_ATTR:
 			// string value
-			printCharacters(th, primValue.getStringValue());
+			try {
+				printCharacters(th, primValue.getStringValue());
+			} catch (Exception e) {
+				// Note: in some strange cases getStringValue() does not work even if primitiveType is string
+				printCharacters(th, primValue.toString());
+				// IF there is an issue the exception is thrown once again
+			}
 			break;
 		case CSSPrimitiveValue.CSS_RGBCOLOR:
 			RGBColor rgbColor = primValue.getRGBColorValue();

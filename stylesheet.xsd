@@ -2,45 +2,76 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
   <xs:element name="stylesheet">
     <xs:complexType>
-      <xs:sequence minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="cssStyleRule" minOccurs="0">
+      <xs:sequence>
+
+        <xs:element name="cssCharsetRule" minOccurs="0" type="xs:string"/>
+        
+        <xs:element name="cssImportRule" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
             <xs:sequence>
-              <!-- selectorText: one string vs. separate selectors -->
-              <!--  <xs:element name="selectorText" type="xs:string"/>  -->
-              <xs:element name="selectorText">
+              <xs:element name="href" type="xs:string" />
+              <xs:element name="mediaList" minOccurs="0">
                 <xs:simpleType>
                   <xs:list itemType="xs:string"/>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="style">
-                <xs:complexType>
-                  <xs:choice maxOccurs="unbounded">
-                    <xs:element ref="cssValue"/>
-                    <xs:element name="property" type="xs:NCName"/>
-                  </xs:choice>
-                </xs:complexType>
-              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="cssCharsetRule" minOccurs="0">
-          <!-- TODO -->
+        
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+          
+          <xs:element ref="cssStyleRule" minOccurs="0"/>
+          
+          <xs:element name="cssFontFaceRule" minOccurs="0">
+            <!-- TODO -->
+          </xs:element>
+
+          <xs:element name="cssMediaRule" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="mediaList">
+                  <xs:simpleType>
+                    <xs:list itemType="xs:string"/>
+                  </xs:simpleType>
+                </xs:element>
+                
+                <xs:element ref="cssStyleRule" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+            
+            <!-- TODO -->
+          </xs:element>
+          <xs:element name="cssPageRule" minOccurs="0">
+            <!-- TODO -->
+          </xs:element>
+          <xs:element name="cssUnknownRule" minOccurs="0">
+            <!-- TODO -->
+          </xs:element>
+        </xs:sequence>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="cssStyleRule">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- selectorText: one string vs. separate selectors -->
+        <!--  <xs:element name="selectorText" type="xs:string"/>  -->
+        <xs:element name="selectorText">
+          <xs:simpleType>
+            <xs:list itemType="xs:string"/>
+          </xs:simpleType>
         </xs:element>
-        <xs:element name="cssFontFaceRule" minOccurs="0">
-          <!-- TODO -->
-        </xs:element>
-        <xs:element name="cssImportRule" minOccurs="0">
-          <!-- TODO -->
-        </xs:element>
-        <xs:element name="cssMediaRule" minOccurs="0">
-          <!-- TODO -->
-        </xs:element>
-        <xs:element name="cssPageRule" minOccurs="0">
-          <!-- TODO -->
-        </xs:element>
-        <xs:element name="cssUnknownRule" minOccurs="0">
-          <!-- TODO -->
+        <xs:element name="style">
+          <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="property" type="xs:string"/>
+              <xs:element ref="cssValue"/>
+              <xs:element name="priority" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
         </xs:element>
       </xs:sequence>
     </xs:complexType>

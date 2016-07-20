@@ -24,7 +24,11 @@
           <xs:element ref="cssStyleRule" minOccurs="0"/>
           
           <xs:element name="cssFontFaceRule" minOccurs="0">
-            <!-- TODO -->
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="style" />
+              </xs:sequence>
+            </xs:complexType>
           </xs:element>
 
           <xs:element name="cssMediaRule" minOccurs="0">
@@ -39,15 +43,19 @@
                 <xs:element ref="cssStyleRule" minOccurs="0" maxOccurs="unbounded"/>
               </xs:sequence>
             </xs:complexType>
-            
-            <!-- TODO -->
           </xs:element>
+          
           <xs:element name="cssPageRule" minOccurs="0">
-            <!-- TODO -->
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element ref="selectorText" />
+                <xs:element ref="style" />
+              </xs:sequence>
+            </xs:complexType>
           </xs:element>
-          <xs:element name="cssUnknownRule" minOccurs="0">
-            <!-- TODO -->
-          </xs:element>
+          
+          <xs:element name="cssUnknownRule" minOccurs="0" type="xs:string"/>
+          
         </xs:sequence>
 
       </xs:sequence>
@@ -57,22 +65,26 @@
   <xs:element name="cssStyleRule">
     <xs:complexType>
       <xs:sequence>
-        <!-- selectorText: one string vs. separate selectors -->
-        <!--  <xs:element name="selectorText" type="xs:string"/>  -->
-        <xs:element name="selectorText">
-          <xs:simpleType>
-            <xs:list itemType="xs:string"/>
-          </xs:simpleType>
-        </xs:element>
-        <xs:element name="style">
-          <xs:complexType>
-            <xs:sequence minOccurs="0" maxOccurs="unbounded">
-              <xs:element name="property" type="xs:string"/>
-              <xs:element ref="cssValue"/>
-              <xs:element name="priority" type="xs:string" minOccurs="0"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element ref="selectorText" />
+        <xs:element ref="style" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- selectorText: one string vs. separate selectors -->
+  <!--  <xs:element name="selectorText" type="xs:string"/>  -->
+  <xs:element name="selectorText">
+    <xs:simpleType>
+      <xs:list itemType="xs:string"/>
+    </xs:simpleType>
+  </xs:element>
+  
+  <xs:element name="style">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="property" type="xs:string"/>
+        <xs:element ref="cssValue"/>
+        <xs:element name="priority" type="xs:string" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

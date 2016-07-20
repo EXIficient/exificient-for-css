@@ -168,6 +168,45 @@ public class CSStoXML {
 		printEndElement(th, URI, "mediaList");
 	}
 	
+	protected void generateCSSStyleDeclaration(CSSStyleDeclaration style, TransformerHandler th) throws SAXException {
+		printStartElement(th, URI, "style");
+		for (int j = 0; j < style.getLength(); j++) {
+			String property = style.item(j);
+			
+			printStartElement(th, URI, "property");
+			printCharacters(th, property);
+			printEndElement(th, URI, "property");
+
+			printStartElement(th, URI, "cssValue");
+			CSSValue cssValue = style.getPropertyCSSValue(property);
+			printCSSValue(th, cssValue);
+			printEndElement(th, URI, "cssValue");
+
+			String priority = style.getPropertyPriority(property);
+			if (priority != null && priority.length() > 0) {
+				printStartElement(th, URI, "priority");
+				printCharacters(th, priority);
+				printEndElement(th, URI, "priority");
+			}
+		}
+		printEndElement(th, URI, "style");
+	}
+	
+	protected void generateSelectorText(String selectorText, TransformerHandler th) throws SAXException {
+		printStartElement(th, URI, "selectorText");
+		printCharacters(th, selectorText);
+//		// e.g, split body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, address
+//		StringTokenizer st = new StringTokenizer(styleRule.getSelectorText(), ",");
+//		while(st.hasMoreTokens()) {
+//			String text = st.nextToken();
+//			printStartElement(th, URI, "sel");
+//			printCharacters(th, text);
+//			printEndElement(th, URI, "sel");
+//		}
+		printEndElement(th, URI, "selectorText");
+		
+	}
+	
 	protected void generateCSSRuleList(CSSRuleList ruleList, TransformerHandler th) throws SAXException {
 		for (int i = 0; i < ruleList.getLength(); i++) {
 			CSSRule rule = ruleList.item(i);
@@ -176,40 +215,8 @@ public class CSStoXML {
 				CSSStyleRule styleRule = (CSSStyleRule) rule;
 				printStartElement(th, URI, "cssStyleRule");
 				{
-					printStartElement(th, URI, "selectorText");
-					printCharacters(th, styleRule.getSelectorText());
-//					// e.g, split body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, address
-//					StringTokenizer st = new StringTokenizer(styleRule.getSelectorText(), ",");
-//					while(st.hasMoreTokens()) {
-//						String text = st.nextToken();
-//						printStartElement(th, URI, "sel");
-//						printCharacters(th, text);
-//						printEndElement(th, URI, "sel");
-//					}
-					printEndElement(th, URI, "selectorText");
-
-					CSSStyleDeclaration style = styleRule.getStyle();
-					printStartElement(th, URI, "style");
-					for (int j = 0; j < style.getLength(); j++) {
-						String property = style.item(j);
-						
-						printStartElement(th, URI, "property");
-						printCharacters(th, property);
-						printEndElement(th, URI, "property");
-
-						printStartElement(th, URI, "cssValue");
-						CSSValue cssValue = style.getPropertyCSSValue(property);
-						printCSSValue(th, cssValue);
-						printEndElement(th, URI, "cssValue");
-
-						String priority = style.getPropertyPriority(property);
-						if (priority != null && priority.length() > 0) {
-							printStartElement(th, URI, "priority");
-							printCharacters(th, priority);
-							printEndElement(th, URI, "priority");
-						}
-					}
-					printEndElement(th, URI, "style");
+					generateSelectorText(styleRule.getSelectorText(), th);
+					generateCSSStyleDeclaration(styleRule.getStyle(), th);
 				}
 				printEndElement(th, URI, "cssStyleRule");
 				break;
@@ -222,8 +229,7 @@ public class CSStoXML {
 			case CSSRule.FONT_FACE_RULE:
 				CSSFontFaceRule fontFaceRule = (CSSFontFaceRule) rule;
 				printStartElement(th, URI, "cssFontFaceRule");
-				System.err
-						.println("Unsupported ruleType = " + "FONT_FACE_RULE");
+				this.generateCSSStyleDeclaration(fontFaceRule.getStyle(), th);
 				printEndElement(th, URI, "cssFontFaceRule");
 				break;
 			case CSSRule.IMPORT_RULE:
@@ -256,13 +262,14 @@ public class CSStoXML {
 			case CSSRule.PAGE_RULE:
 				CSSPageRule pageRule = (CSSPageRule) rule;
 				printStartElement(th, URI, "cssPageRule");
-				System.err.println("Unsupported ruleType = " + "PAGE_RULE");
+				generateSelectorText(pageRule.getSelectorText(), th);
+				generateCSSStyleDeclaration(pageRule.getStyle(), th);
 				printEndElement(th, URI, "cssPageRule");
 				break;
 			case CSSRule.UNKNOWN_RULE:
 				CSSUnknownRule unknownRule = (CSSUnknownRule) rule;
 				printStartElement(th, URI, "cssUnknownRule");
-				System.err.println("Unsupported ruleType = " + "UNKNOWN_RULE");
+				printCharacters(th, unknownRule);
 				printEndElement(th, URI, "cssUnknownRule");
 				break;
 			default:

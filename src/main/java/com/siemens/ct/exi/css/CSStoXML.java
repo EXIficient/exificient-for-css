@@ -23,7 +23,18 @@
 
 package com.siemens.ct.exi.css;
 
-import com.steadystate.css.parser.CSSOMParser;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.sax.TransformerHandler;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.css.sac.InputSource;
 import org.w3c.dom.DOMException;
@@ -33,11 +44,11 @@ import org.w3c.dom.css.CSSImportRule;
 import org.w3c.dom.css.CSSMediaRule;
 import org.w3c.dom.css.CSSPageRule;
 import org.w3c.dom.css.CSSPrimitiveValue;
-import org.w3c.dom.css.CSSStyleSheet;
-import org.w3c.dom.css.CSSRuleList;
 import org.w3c.dom.css.CSSRule;
-import org.w3c.dom.css.CSSStyleRule;
+import org.w3c.dom.css.CSSRuleList;
 import org.w3c.dom.css.CSSStyleDeclaration;
+import org.w3c.dom.css.CSSStyleRule;
+import org.w3c.dom.css.CSSStyleSheet;
 import org.w3c.dom.css.CSSUnknownRule;
 import org.w3c.dom.css.CSSValue;
 import org.w3c.dom.css.CSSValueList;
@@ -48,15 +59,8 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
-import java.io.*;
-import java.util.StringTokenizer;
-
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.sax.SAXTransformerFactory;
-import javax.xml.transform.sax.TransformerHandler;
-import javax.xml.transform.stream.StreamResult;
+import com.steadystate.css.parser.CSSOMParser;
+import com.steadystate.css.parser.SACParserCSS3;
 
 public class CSStoXML {
 	
@@ -138,7 +142,7 @@ public class CSStoXML {
 
 	public void generate(InputStream stream, PrintStream ps) throws IOException, TransformerConfigurationException, SAXException {
 		InputSource source = new InputSource(new InputStreamReader(stream));
-		CSSOMParser parser = new CSSOMParser();
+		CSSOMParser parser = new CSSOMParser(new SACParserCSS3());
 		// parse and create a stylesheet composition
 		CSSStyleSheet stylesheet = parser.parseStyleSheet(source, null, null);
 

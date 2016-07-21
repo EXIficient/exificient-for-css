@@ -17,6 +17,8 @@ html{color:#000;background:#FFF;}
 
 li{list-style:none;}
 
+#p1 {background-color: rgba(255, 0, 0, 0.3);} 
+
 /* CSSMediaRule */
 @media screen { /* and (min-width: 480px) */
     body {
@@ -51,14 +53,3 @@ li{list-style:none;}
     font-family: myFirstFont;
     src: url(sansation_light.woff);
 }
-@font-face {
-  [font-family: <family-name>;]?
-  [src: [ <uri> [format(<string>#)]? | <font-face-name> ]#;]?
-  [unicode-range: <urange>#;]?
-  [font-variant: <font-variant>;]?
-  [font-feature-settings: normal|<feature-tag-value>#;]?
-  [font-stretch: <font-stretch>;]?
-  [font-weight: <weight>];
-  [font-style: <style>];
-}
-

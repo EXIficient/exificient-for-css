@@ -356,13 +356,14 @@ public class CSStoXML {
 		case CSSPrimitiveValue.CSS_IDENT:
 		case CSSPrimitiveValue.CSS_ATTR:
 			// string value
-			try {
+//			try {
 				printCharacters(th, primValue.getStringValue());
-			} catch (Exception e) {
-				// Note: in some strange cases getStringValue() does not work even if primitiveType is string
-				printCharacters(th, primValue.toString());
-				// IF there is an issue the exception is thrown once again
-			}
+//			} catch (Exception e) {
+//				// Note: Snapshot version cssparser-0.9.20-20160721.090615-5.jar resolves issue
+//				// Note: in some strange cases getStringValue() does not work even if primitiveType is string
+//				printCharacters(th, primValue.toString());
+//				// IF there is an issue the exception is thrown once again
+//			}
 			break;
 		case CSSPrimitiveValue.CSS_RGBCOLOR:
 			RGBColor rgbColor = primValue.getRGBColorValue();

@@ -51,8 +51,8 @@
 	<dependency>
 	    <groupId>net.sourceforge.cssparser</groupId>
 	    <artifactId>cssparser</artifactId>
-	    <!--  <version>0.9.19</version> -->
-	    <version>0.9.20-SNAPSHOT</version><!-- fixes bug https://sourceforge.net/p/cssparser/bugs/66/ -->
+	    <version>0.9.20</version>
+	    <!-- <version>0.9.20-SNAPSHOT</version>--><!-- fixes bug https://sourceforge.net/p/cssparser/bugs/66/ -->
 	</dependency>
 	<dependency>
 	   <groupId>com.siemens.ct.exi</groupId>

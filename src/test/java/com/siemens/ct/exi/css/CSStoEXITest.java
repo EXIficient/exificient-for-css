@@ -1,13 +1,13 @@
 package com.siemens.ct.exi.css;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintStream;
+import java.io.Reader;
+import java.io.Writer;
 
 import javax.xml.transform.TransformerConfigurationException;
 
@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import com.siemens.ct.exi.exceptions.EXIException;
+import com.yahoo.platform.yui.compressor.CssCompressor;
 
 public class CSStoEXITest extends TestCase {
 	
@@ -27,7 +28,7 @@ public class CSStoEXITest extends TestCase {
 	public void setUp() {
 		//executed only once, before the first test
 	    if (!setUpIsDone) {
-	    	ps.println("CSS-Name; SizeCSS; SizeEXI");
+	    	ps.println("CSS-Name; SizeCSS; SizeCompressedCSS; SizeEXI");
 	    	setUpIsDone = true;
 	    }
     }
@@ -37,7 +38,13 @@ public class CSStoEXITest extends TestCase {
 		String sXML = File.createTempFile("css", "xml").getAbsolutePath();
 		String sEXI = File.createTempFile("css", "exi").getAbsolutePath();
 		css2Exi.generate(css, sXML, sEXI);
-		System.out.println(css + ";" + new File(css).length() + ";" + new File(sEXI).length());
+		Reader cssIn = new FileReader(new File(css));
+		CssCompressor cssCompressor = new CssCompressor(cssIn);
+		File fCssOut = File.createTempFile("cssCompressor", "css");
+		Writer cssOut = new FileWriter(fCssOut);
+		cssCompressor.compress(cssOut, -1);
+		cssOut.flush();
+		System.out.println(css + "; " + new File(css).length() + "; " + fCssOut.length() + "; " + new File(sEXI).length());
 	}
 	
 	@Test

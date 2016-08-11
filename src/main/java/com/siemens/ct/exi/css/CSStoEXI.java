@@ -45,16 +45,14 @@ import com.siemens.ct.exi.exceptions.EXIException;
 import com.siemens.ct.exi.helpers.DefaultEXIFactory;
 
 public class CSStoEXI {
-	
-	public static final String XSD_LOCATION = "stylesheet.xsd";
 
 	public static void main(String[] args) throws IOException, EXIException, SAXException, TransformerConfigurationException {
 		if(args == null || args.length != 1) {
 			System.out.println("Usage: <executable> input.css");
 		} else {
 			CSStoEXI css2Exi = new CSStoEXI();
-			String sXML = args[0] + ".xml";
-			String sEXI = args[0] + ".xml.exi";
+			String sXML = args[0] + CSSConstants.SUFFIX_XML;
+			String sEXI = args[0] + CSSConstants.SUFFIX_EXI;
 			css2Exi.generate(args[0], sXML, sEXI);
 			System.out.println("CSS '" + args[0] + "'(" + new File(args[0]).length() + ") to EXI '" + sEXI + "'(" + new File(sEXI).length() + ")");
 		}
@@ -78,7 +76,8 @@ public class CSStoEXI {
 		
 		EXIFactory exiFactory = DefaultEXIFactory.newInstance();
 		exiFactory.setFidelityOptions(FidelityOptions.createStrict());
-		exiFactory.setGrammars(GrammarFactory.newInstance().createGrammars(XSD_LOCATION)); // use XML schema
+		InputStream isXsd = this.getClass().getResourceAsStream(CSSConstants.XSD_LOCATION);
+		exiFactory.setGrammars(GrammarFactory.newInstance().createGrammars(isXsd)); // use XML schema
 		// exiFactory.setCodingMode(CodingMode.COMPRESSION); // use deflate compression for larger XML files
 
 		EXIResult exiResult = new EXIResult(exiFactory);

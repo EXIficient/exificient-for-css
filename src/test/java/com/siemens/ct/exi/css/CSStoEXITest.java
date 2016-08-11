@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.Reader;
 import java.io.Writer;
@@ -14,9 +15,13 @@ import javax.xml.transform.TransformerConfigurationException;
 import junit.framework.TestCase;
 
 import org.junit.Test;
+import org.w3c.css.sac.InputSource;
+import org.w3c.dom.css.CSSStyleSheet;
 import org.xml.sax.SAXException;
 
 import com.siemens.ct.exi.exceptions.EXIException;
+import com.steadystate.css.parser.CSSOMParser;
+import com.steadystate.css.parser.SACParserCSS3;
 import com.yahoo.platform.yui.compressor.CssCompressor;
 
 public class CSStoEXITest extends TestCase {
@@ -45,6 +50,19 @@ public class CSStoEXITest extends TestCase {
 		cssCompressor.compress(cssOut, -1);
 		cssOut.flush();
 		System.out.println(css + "; " + new File(css).length() + "; " + fCssOut.length() + "; " + new File(sEXI).length());
+		
+		// read it again
+		EXItoCSS exi2Css = new EXItoCSS();
+		String sCSS = File.createTempFile("exi", "css").getAbsolutePath();
+		exi2Css.generate(sEXI, sCSS);
+		
+		InputSource source = new InputSource(new FileReader(sCSS));
+		CSSOMParser parser = new CSSOMParser(new SACParserCSS3());
+		// parse and create a stylesheet composition
+		CSSStyleSheet stylesheet = parser.parseStyleSheet(source, null, null);
+		
+		assertFalse("Decoded CSS failed", stylesheet == null);
+		
 	}
 	
 	@Test

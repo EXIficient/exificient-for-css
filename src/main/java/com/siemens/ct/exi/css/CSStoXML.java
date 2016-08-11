@@ -64,7 +64,6 @@ import com.steadystate.css.parser.SACParserCSS3;
 
 public class CSStoXML {
 	
-	static final String URI = "";
 	
 	final Attributes attsEmpty = new AttributesImpl();
 
@@ -83,57 +82,57 @@ public class CSStoXML {
 	
 	static final String primitiveTagNames[] = {
 		// public static final short CSS_UNKNOWN = 0;
-		"cssUnknown",
+		CSSConstants.CSS_UNKNOWN,
 		// public static final short CSS_NUMBER = 1;
-		"cssNumber",
+		CSSConstants.CSS_NUMBER,
 		// public static final short CSS_PERCENTAGE = 2;
-		"cssPercentage",
+		CSSConstants.CSS_PERCENTAGE,
 		// public static final short CSS_EMS = 3;
-		"cssEms",
+		CSSConstants.CSS_EMS,
 		// public static final short CSS_EXS = 4;
-		"cssExs",
+		CSSConstants.CSS_EXS,
 		// public static final short CSS_PX = 5;
-		"cssPx",
+		CSSConstants.CSS_PX,
 		// public static final short CSS_CM = 6;
-		"cssCm",
+		CSSConstants.CSS_CM,
 		// public static final short CSS_MM = 7;
-		"cssMm",
+		CSSConstants.CSS_MM,
 		// public static final short CSS_IN = 8;
-		"cssIn",
+		CSSConstants.CSS_IN,
 		// public static final short CSS_PT = 9;
-		"cssPt",
+		CSSConstants.CSS_PT,
 		// public static final short CSS_PC = 10;
-		"cssPc",
+		CSSConstants.CSS_PC,
 		// public static final short CSS_DEG = 11;
-		"cssDeg",
+		CSSConstants.CSS_DEG,
 		// public static final short CSS_RAD = 12;
-		"cssRad",
+		CSSConstants.CSS_RAD,
 		// public static final short CSS_GRAD = 13;
-		"cssGrad",
+		CSSConstants.CSS_GRAD,
 		// public static final short CSS_MS = 14;
-		"cssMs",
+		CSSConstants.CSS_MS,
 		// public static final short CSS_S = 15;
-		"cssS",
+		CSSConstants.CSS_S,
 		// public static final short CSS_HZ = 16;
-		"cssHz",
+		CSSConstants.CSS_HZ,
 		// public static final short CSS_KHZ = 17;
-		"cssKhz",
+		CSSConstants.CSS_KHZ,
 		// public static final short CSS_DIMENSION = 18;
-		"cssDimension",
+		CSSConstants.CSS_DIMENSION,
 		// public static final short CSS_STRING = 19;
-		"cssString",
+		CSSConstants.CSS_STRING,
 		// public static final short CSS_URI = 20;
-		"cssUri",
+		CSSConstants.CSS_URI,
 		// public static final short CSS_IDENT = 21;
-		"cssIdent",
+		CSSConstants.CSS_IDENT,
 		// public static final short CSS_ATTR = 22;
-		"cssAttr",
+		CSSConstants.CSS_ATTR,
 		// public static final short CSS_COUNTER = 23;
-		"cssCounter",
+		CSSConstants.CSS_COUNTER,
 		// public static final short CSS_RECT = 24;
-		"cssRect",
+		CSSConstants.CSS_RECT,
 		// public static final short CSS_RGBCOLOR = 25;
-		"cssRgbColor" };
+		CSSConstants.CSS_RGBCOLOR };
 
 	public void generate(InputStream stream) throws IOException, TransformerConfigurationException, SAXException {
 		PrintStream ps = System.out;
@@ -155,49 +154,49 @@ public class CSStoXML {
 		th.setResult(xmlResult);
 		
 		th.startDocument();
-		printStartElement(th, URI, "stylesheet");
+		printStartElement(th, CSSConstants.URI, CSSConstants.STYLESHEET);
 
 		CSSRuleList ruleList = stylesheet.getCssRules();
 		generateCSSRuleList(ruleList, th);
 
-		printEndElement(th, URI, "stylesheet");
+		printEndElement(th, CSSConstants.URI, CSSConstants.STYLESHEET);
 		th.endDocument();
 	}
 	
 	protected void generateMediaList(MediaList mediaList, TransformerHandler th) throws SAXException {
-		printStartElement(th, URI, "mediaList");
+		printStartElement(th, CSSConstants.URI, CSSConstants.MEDIA_LIST);
 		for(int k=0;k<mediaList.getLength(); k++) {
 			printCharacters(th, mediaList.item(k));
 		}
-		printEndElement(th, URI, "mediaList");
+		printEndElement(th, CSSConstants.URI, CSSConstants.MEDIA_LIST);
 	}
 	
 	protected void generateCSSStyleDeclaration(CSSStyleDeclaration style, TransformerHandler th) throws SAXException {
-		printStartElement(th, URI, "style");
+		printStartElement(th, CSSConstants.URI, CSSConstants.STYLE);
 		for (int j = 0; j < style.getLength(); j++) {
 			String property = style.item(j);
 			
-			printStartElement(th, URI, "property");
+			printStartElement(th, CSSConstants.URI, CSSConstants.PROPERTY);
 			printCharacters(th, property);
-			printEndElement(th, URI, "property");
+			printEndElement(th, CSSConstants.URI, CSSConstants.PROPERTY);
 
-			printStartElement(th, URI, "cssValue");
+			printStartElement(th, CSSConstants.URI, CSSConstants.CSS_VALUE);
 			CSSValue cssValue = style.getPropertyCSSValue(property);
 			printCSSValue(th, cssValue);
-			printEndElement(th, URI, "cssValue");
+			printEndElement(th, CSSConstants.URI, CSSConstants.CSS_VALUE);
 
 			String priority = style.getPropertyPriority(property);
 			if (priority != null && priority.length() > 0) {
-				printStartElement(th, URI, "priority");
+				printStartElement(th, CSSConstants.URI, CSSConstants.PRIORITY);
 				printCharacters(th, priority);
-				printEndElement(th, URI, "priority");
+				printEndElement(th, CSSConstants.URI, CSSConstants.PRIORITY);
 			}
 		}
-		printEndElement(th, URI, "style");
+		printEndElement(th, CSSConstants.URI, CSSConstants.STYLE);
 	}
 	
 	protected void generateSelectorText(String selectorText, TransformerHandler th) throws SAXException {
-		printStartElement(th, URI, "selectorText");
+		printStartElement(th, CSSConstants.URI, CSSConstants.SELECTOR_TEXT);
 		printCharacters(th, selectorText);
 //		// e.g, split body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, address
 //		StringTokenizer st = new StringTokenizer(styleRule.getSelectorText(), ",");
@@ -207,7 +206,7 @@ public class CSStoXML {
 //			printCharacters(th, text);
 //			printEndElement(th, URI, "sel");
 //		}
-		printEndElement(th, URI, "selectorText");
+		printEndElement(th, CSSConstants.URI, CSSConstants.SELECTOR_TEXT);
 		
 	}
 	
@@ -217,43 +216,43 @@ public class CSStoXML {
 			switch (rule.getType()) {
 			case CSSRule.STYLE_RULE:
 				CSSStyleRule styleRule = (CSSStyleRule) rule;
-				printStartElement(th, URI, "cssStyleRule");
+				printStartElement(th, CSSConstants.URI, CSSConstants.CSS_STYLE_RULE);
 				{
 					generateSelectorText(styleRule.getSelectorText(), th);
 					generateCSSStyleDeclaration(styleRule.getStyle(), th);
 				}
-				printEndElement(th, URI, "cssStyleRule");
+				printEndElement(th, CSSConstants.URI, CSSConstants.CSS_STYLE_RULE);
 				break;
 			case CSSRule.CHARSET_RULE:
 				CSSCharsetRule charsetRule = (CSSCharsetRule) rule;
-				printStartElement(th, URI, "cssCharsetRule");
+				printStartElement(th, CSSConstants.URI, CSSConstants.CSS_CHARSET_RULE);
 				printCharacters(th, charsetRule.getEncoding());
-				printEndElement(th, URI, "cssCharsetRule");
+				printEndElement(th, CSSConstants.URI, CSSConstants.CSS_CHARSET_RULE);
 				break;
 			case CSSRule.FONT_FACE_RULE:
 				CSSFontFaceRule fontFaceRule = (CSSFontFaceRule) rule;
-				printStartElement(th, URI, "cssFontFaceRule");
+				printStartElement(th, CSSConstants.URI, CSSConstants.CSS_FONT_FACE_RULE);
 				this.generateCSSStyleDeclaration(fontFaceRule.getStyle(), th);
-				printEndElement(th, URI, "cssFontFaceRule");
+				printEndElement(th, CSSConstants.URI, CSSConstants.CSS_FONT_FACE_RULE);
 				break;
 			case CSSRule.IMPORT_RULE:
 				CSSImportRule importRule = (CSSImportRule) rule;
-				printStartElement(th, URI, "cssImportRule");
+				printStartElement(th, CSSConstants.URI, CSSConstants.CSS_IMPORT_RULE);
 				{
-					printStartElement(th, URI, "href");
+					printStartElement(th, CSSConstants.URI, CSSConstants.HREF);
 					printCharacters(th, importRule.getHref());
-					printEndElement(th, URI, "href");
+					printEndElement(th, CSSConstants.URI, CSSConstants.HREF);
 				}
 				
 				generateMediaList(importRule.getMedia(), th);
 				
-				printEndElement(th, URI, "cssImportRule");
+				printEndElement(th, CSSConstants.URI, CSSConstants.CSS_IMPORT_RULE);
 				break;
 			case CSSRule.MEDIA_RULE:
 				CSSMediaRule mediaRule = (CSSMediaRule) rule;
 				// System.err.println(mediaRule.getMedia());
 				// System.err.println(mediaRule.getCssRules());
-				printStartElement(th, URI, "cssMediaRule");
+				printStartElement(th, CSSConstants.URI, CSSConstants.CSS_MEDIA_RULE);
 				
 				generateMediaList(mediaRule.getMedia(), th);
 					
@@ -261,20 +260,20 @@ public class CSStoXML {
 				{
 					generateCSSRuleList(rl, th);
 				}
-				printEndElement(th, URI, "cssMediaRule");
+				printEndElement(th, CSSConstants.URI, CSSConstants.CSS_MEDIA_RULE);
 				break;
 			case CSSRule.PAGE_RULE:
 				CSSPageRule pageRule = (CSSPageRule) rule;
-				printStartElement(th, URI, "cssPageRule");
+				printStartElement(th, CSSConstants.URI, CSSConstants.CSS_PAGE_RULE);
 				generateSelectorText(pageRule.getSelectorText(), th);
 				generateCSSStyleDeclaration(pageRule.getStyle(), th);
-				printEndElement(th, URI, "cssPageRule");
+				printEndElement(th, CSSConstants.URI, CSSConstants.CSS_PAGE_RULE);
 				break;
 			case CSSRule.UNKNOWN_RULE:
 				CSSUnknownRule unknownRule = (CSSUnknownRule) rule;
-				printStartElement(th, URI, "cssUnknownRule");
+				printStartElement(th, CSSConstants.URI, CSSConstants.CSS_UNKNOWN_RULE);
 				printCharacters(th, unknownRule);
-				printEndElement(th, URI, "cssUnknownRule");
+				printEndElement(th, CSSConstants.URI, CSSConstants.CSS_UNKNOWN_RULE);
 				break;
 			default:
 				throw new RuntimeException("Unexptected RuleType: "
@@ -298,22 +297,22 @@ public class CSStoXML {
 
 	protected void printCSSValue(ContentHandler th, CSSValue cssValue) throws SAXException {
 		if (cssValue.getCssValueType() == CSSValue.CSS_PRIMITIVE_VALUE) {
-			printStartElement(th, URI, "cssPrimitiveValue");
+			printStartElement(th, CSSConstants.URI, CSSConstants.CSS_PRIMITIVE_VALUE);
 			CSSPrimitiveValue primValue = (CSSPrimitiveValue) cssValue;
 			printCSSPrimitiveValue(th, primValue);
-			printEndElement(th, URI, "cssPrimitiveValue");
+			printEndElement(th, CSSConstants.URI, CSSConstants.CSS_PRIMITIVE_VALUE);
 		} else if (cssValue.getCssValueType() == CSSValue.CSS_VALUE_LIST) {
 			CSSValueList valueList = (CSSValueList) cssValue;
 			
-			printStartElement(th, URI, "cssValueList");
+			printStartElement(th, CSSConstants.URI, CSSConstants.CSS_VALUE_LIST);
 			for (int k = 0; k < valueList.getLength(); k++) {
 				CSSValue cssValueK = valueList.item(k);
 				printCSSValue(th, cssValueK);
 			}
-			printEndElement(th, URI, "cssValueList");
+			printEndElement(th, CSSConstants.URI, CSSConstants.CSS_VALUE_LIST);
 		} else if (cssValue.getCssValueType() == CSSValue.CSS_INHERIT) {
-			printStartElement(th, URI, "cssInherit");
-			printEndElement(th, URI, "cssInherit");
+			printStartElement(th, CSSConstants.URI, CSSConstants.CSS_INHERIT);
+			printEndElement(th, CSSConstants.URI, CSSConstants.CSS_INHERIT);
 		} else {
 			throw new RuntimeException("Unexptected CssValueType: "
 					+ cssValue.getCssValueType());
@@ -326,7 +325,7 @@ public class CSStoXML {
 			CSSPrimitiveValue primValue) throws DOMException, SAXException {
 		
 		short primitiveType = primValue.getPrimitiveType();
-		printStartElement(th, URI, primitiveTagNames[primitiveType]);
+		printStartElement(th, CSSConstants.URI, primitiveTagNames[primitiveType]);
 		
 		switch (primitiveType) {
 		case CSSPrimitiveValue.CSS_NUMBER:
@@ -368,17 +367,17 @@ public class CSStoXML {
 		case CSSPrimitiveValue.CSS_RGBCOLOR:
 			RGBColor rgbColor = primValue.getRGBColorValue();
 			{
-				printStartElement(th, URI, "r");
+				printStartElement(th, CSSConstants.URI, CSSConstants.R);
 				printCharacters(th, rgbColor.getRed());
-				printEndElement(th, URI, "r");
+				printEndElement(th, CSSConstants.URI, CSSConstants.R);
 				
-				printStartElement(th, URI, "g");
+				printStartElement(th, CSSConstants.URI, CSSConstants.G);
 				printCharacters(th, rgbColor.getGreen());
-				printEndElement(th, URI, "g");
+				printEndElement(th, CSSConstants.URI, CSSConstants.G);
 			
-				printStartElement(th, URI, "b");
+				printStartElement(th, CSSConstants.URI, CSSConstants.B);
 				printCharacters(th, rgbColor.getBlue());
-				printEndElement(th, URI, "b");
+				printEndElement(th, CSSConstants.URI, CSSConstants.B);
 			}
 			break;
 		default:
@@ -386,7 +385,7 @@ public class CSStoXML {
 					+ primitiveType);
 		}
 
-		printEndElement(th, URI, primitiveTagNames[primitiveType]);
+		printEndElement(th, CSSConstants.URI, primitiveTagNames[primitiveType]);
 	}
 
 }

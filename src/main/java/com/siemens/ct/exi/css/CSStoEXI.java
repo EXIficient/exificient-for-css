@@ -38,11 +38,8 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import com.siemens.ct.exi.EXIFactory;
-import com.siemens.ct.exi.FidelityOptions;
-import com.siemens.ct.exi.GrammarFactory;
 import com.siemens.ct.exi.api.sax.EXIResult;
 import com.siemens.ct.exi.exceptions.EXIException;
-import com.siemens.ct.exi.helpers.DefaultEXIFactory;
 
 public class CSStoEXI {
 
@@ -53,12 +50,13 @@ public class CSStoEXI {
 			CSStoEXI css2Exi = new CSStoEXI();
 			String sXML = args[0] + CSSConstants.SUFFIX_XML;
 			String sEXI = args[0] + CSSConstants.SUFFIX_EXI;
-			css2Exi.generate(args[0], sXML, sEXI);
+			
+			css2Exi.generate(args[0], CSSConstants.EXI_FACTORY, sXML, sEXI);
 			System.out.println("CSS '" + args[0] + "'(" + new File(args[0]).length() + ") to EXI '" + sEXI + "'(" + new File(sEXI).length() + ")");
 		}
 	}
 	
-	public void generate(String fCSS, String fXML, String fEXI) throws IOException, EXIException, SAXException, TransformerConfigurationException {
+	public void generate(String fCSS, EXIFactory exiFactory, String fXML, String fEXI) throws IOException, EXIException, SAXException, TransformerConfigurationException {
 		// Note: currently a two step process to see XML also
 		// CSS -> XML -> EXI
 		// Can and should be switched to directly produce EXI
@@ -73,12 +71,6 @@ public class CSStoEXI {
 		
 		// 2. XML to EXI
 		OutputStream osEXI = new FileOutputStream(fEXI);
-		
-		EXIFactory exiFactory = DefaultEXIFactory.newInstance();
-		exiFactory.setFidelityOptions(FidelityOptions.createStrict());
-		InputStream isXsd = this.getClass().getResourceAsStream(CSSConstants.XSD_LOCATION);
-		exiFactory.setGrammars(GrammarFactory.newInstance().createGrammars(isXsd)); // use XML schema
-		// exiFactory.setCodingMode(CodingMode.COMPRESSION); // use deflate compression for larger XML files
 
 		EXIResult exiResult = new EXIResult(exiFactory);
 		exiResult.setOutputStream(osEXI);

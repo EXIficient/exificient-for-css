@@ -1,8 +1,34 @@
 package com.siemens.ct.exi.css;
 
+import java.io.InputStream;
+
+import com.siemens.ct.exi.EXIFactory;
+import com.siemens.ct.exi.FidelityOptions;
+import com.siemens.ct.exi.GrammarFactory;
+import com.siemens.ct.exi.exceptions.EXIException;
+import com.siemens.ct.exi.grammars.Grammars;
+import com.siemens.ct.exi.helpers.DefaultEXIFactory;
+
 public class CSSConstants {
 	
 	public static final String XSD_LOCATION = "/stylesheet.xsd";
+	public static Grammars EXI_FOR_CSS_GRAMMARS;
+	public static EXIFactory EXI_FACTORY;	
+	
+	static {
+		try {
+			InputStream isXsd = CSSConstants.class.getResourceAsStream(CSSConstants.XSD_LOCATION);
+			EXI_FOR_CSS_GRAMMARS = GrammarFactory.newInstance().createGrammars(isXsd);
+			
+			EXI_FACTORY = DefaultEXIFactory.newInstance();
+			EXI_FACTORY.setFidelityOptions(FidelityOptions.createStrict());
+			EXI_FACTORY.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS); // use XML schema
+			// exiFactory.setCodingMode(CodingMode.COMPRESSION); // use deflate compression for larger XML files
+		} catch (EXIException e) {
+			System.err.println("Not able to load EXI grammars from " + XSD_LOCATION);
+		}
+	}
+	
 	
 	public static final String SUFFIX_XML = ".xml";
 	public static final String SUFFIX_EXI = SUFFIX_XML + ".exi";

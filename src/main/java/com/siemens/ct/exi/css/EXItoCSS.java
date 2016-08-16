@@ -1,33 +1,20 @@
 package com.siemens.ct.exi.css;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.List;
 
-import com.siemens.ct.exi.Constants;
 import com.siemens.ct.exi.EXIBodyDecoder;
 import com.siemens.ct.exi.EXIFactory;
 import com.siemens.ct.exi.EXIStreamDecoder;
-import com.siemens.ct.exi.FidelityOptions;
-import com.siemens.ct.exi.GrammarFactory;
 import com.siemens.ct.exi.context.QNameContext;
-import com.siemens.ct.exi.core.container.NamespaceDeclaration;
 import com.siemens.ct.exi.exceptions.EXIException;
 import com.siemens.ct.exi.grammars.event.EventType;
-import com.siemens.ct.exi.helpers.DefaultEXIFactory;
 import com.siemens.ct.exi.values.FloatValue;
-import com.siemens.ct.exi.values.ListValue;
 import com.siemens.ct.exi.values.Value;
 import com.siemens.ct.exi.values.ValueType;
-import com.steadystate.css.dom.CSSStyleSheetImpl;
 
 public class EXItoCSS {
 
@@ -38,19 +25,13 @@ public class EXItoCSS {
 			EXItoCSS exi2Css = new EXItoCSS();
 			String sEXI = args[0];
 			String sCSS = sEXI + CSSConstants.SUFFIX_CSS;
-			exi2Css.generate(sEXI, sCSS);
+			
+			exi2Css.generate(sEXI, CSSConstants.EXI_FACTORY, sCSS);
 		}
 	}
 	
 	
-	public void generate(String fEXI, String fCSS) throws EXIException, FileNotFoundException, IOException {
-		// TODO shared between encoder & decoder
-		EXIFactory exiFactory = DefaultEXIFactory.newInstance();
-		exiFactory.setFidelityOptions(FidelityOptions.createStrict());
-		InputStream isXsd = this.getClass().getResourceAsStream(CSSConstants.XSD_LOCATION);
-		exiFactory.setGrammars(GrammarFactory.newInstance().createGrammars(isXsd)); // use XML schema
-		// exiFactory.setCodingMode(CodingMode.COMPRESSION); // use deflate compression for larger XML files
-		
+	public void generate(String fEXI, EXIFactory exiFactory, String fCSS) throws EXIException, FileNotFoundException, IOException {
 		EXIStreamDecoder streamDecoder = exiFactory.createEXIStreamDecoder();
 		EXIBodyDecoder bodyDecoder = streamDecoder.decodeHeader(new FileInputStream(fEXI));
 		
@@ -243,7 +224,7 @@ public class EXItoCSS {
 //		ps.close();
 		
 		
-		CSSStyleSheetImpl ss = new CSSStyleSheetImpl();
+//		CSSStyleSheetImpl ss = new CSSStyleSheetImpl();
 //		int i = ss.insertRule("rule", 0);
 		
 	}

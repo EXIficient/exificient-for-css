@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.Reader;
 import java.io.Writer;
@@ -42,7 +41,7 @@ public class CSStoEXITest extends TestCase {
 		CSStoEXI css2Exi = new CSStoEXI();
 		String sXML = File.createTempFile("css", "xml").getAbsolutePath();
 		String sEXI = File.createTempFile("css", "exi").getAbsolutePath();
-		css2Exi.generate(css, sXML, sEXI);
+		css2Exi.generate(css, CSSConstants.EXI_FACTORY, sXML, sEXI);
 		Reader cssIn = new FileReader(new File(css));
 		CssCompressor cssCompressor = new CssCompressor(cssIn);
 		File fCssOut = File.createTempFile("cssCompressor", "css");
@@ -54,7 +53,7 @@ public class CSStoEXITest extends TestCase {
 		// read it again
 		EXItoCSS exi2Css = new EXItoCSS();
 		String sCSS = File.createTempFile("exi", "css").getAbsolutePath();
-		exi2Css.generate(sEXI, sCSS);
+		exi2Css.generate(sEXI, CSSConstants.EXI_FACTORY, sCSS);
 		
 		InputSource source = new InputSource(new FileReader(sCSS));
 		CSSOMParser parser = new CSSOMParser(new SACParserCSS3());

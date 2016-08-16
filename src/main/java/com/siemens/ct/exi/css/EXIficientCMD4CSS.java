@@ -12,10 +12,8 @@ import org.xml.sax.SAXException;
 
 import com.siemens.ct.exi.CodingMode;
 import com.siemens.ct.exi.EXIFactory;
-import com.siemens.ct.exi.FidelityOptions;
 import com.siemens.ct.exi.cmd.CmdOption;
 import com.siemens.ct.exi.exceptions.EXIException;
-import com.siemens.ct.exi.helpers.DefaultEXIFactory;
 
 public class EXIficientCMD4CSS {
 
@@ -25,6 +23,9 @@ public class EXIficientCMD4CSS {
 
 	public static String ENCODE = "-encode";
 	public static String DECODE = "-decode";
+	
+	public static final String INPUT = "-i";
+	public static final String OUTPUT = "-o";
 
 	public static final String CODING_COMPRESSION = "-compression";
 
@@ -52,11 +53,15 @@ public class EXIficientCMD4CSS {
 		ps.println(" " + ENCODE);
 		ps.println(" " + DECODE);
 		ps.println();
+		ps.println();
+		ps.println(" " + INPUT + " <input-file>");
+//		ps.println(" " + OUTPUT + " <output-file>");
+		ps.println();
 		ps.println(" " + CODING_COMPRESSION);
 		ps.println();
 		ps.println("# Examples");
-		ps.println(" " + ENCODE + " sample.css");
-		ps.println(" " + DECODE + " sample.css.xml.exi");
+		ps.println(" " + ENCODE + " " + INPUT + " sample.css");
+		ps.println(" " + DECODE + " " + INPUT + " sample.css.xml.exi");
 	}
 
 	protected static void printError(String msg) {
@@ -70,11 +75,9 @@ public class EXIficientCMD4CSS {
 		input = null;
 		output = null;
 
-		exiFactory = DefaultEXIFactory.newInstance();
-		exiFactory.setFidelityOptions(FidelityOptions.createStrict());
-		exiFactory.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS); // use XML
-																	// schema
-
+		exiFactory = CSSConstants.EXI_FACTORY;
+		exiFactory.setCodingMode(CodingMode.BIT_PACKED);
+		
 		int indexArgument = 0;
 		while (indexArgument < args.length) {
 			String argument = args[indexArgument];
@@ -89,6 +92,18 @@ public class EXIficientCMD4CSS {
 				cmdOption = CmdOption.encode;
 			} else if (DECODE.equalsIgnoreCase(argument)) {
 				cmdOption = CmdOption.decode;
+			}
+			// ### IO_OPTIONS
+			else if (INPUT.equalsIgnoreCase(argument)) {
+				assert ((indexArgument + 1) < args.length);
+				indexArgument++;
+
+				input = args[indexArgument];
+//			} else if (OUTPUT.equalsIgnoreCase(argument)) {
+//				assert ((indexArgument + 1) < args.length);
+//				indexArgument++;
+//
+//				output = args[indexArgument];
 			}
 			// ### COMPRESSION
 			else if (CODING_COMPRESSION.equalsIgnoreCase(argument)) {

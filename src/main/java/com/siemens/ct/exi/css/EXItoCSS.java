@@ -13,6 +13,7 @@ import com.siemens.ct.exi.context.QNameContext;
 import com.siemens.ct.exi.exceptions.EXIException;
 import com.siemens.ct.exi.grammars.event.EventType;
 import com.siemens.ct.exi.values.FloatValue;
+import com.siemens.ct.exi.values.ListValue;
 import com.siemens.ct.exi.values.Value;
 import com.siemens.ct.exi.values.ValueType;
 
@@ -197,6 +198,17 @@ public class EXItoCSS {
 							e++;
 						}
 						sb.append(roundToDecimals(fm, 2) + "");
+					}
+				} else if(val.getValueType() == ValueType.LIST) {
+					// Note: selectorText --> separator is comma
+					ListValue lv = (ListValue) val;
+					if(lv.getNumberOfValues() > 0) {
+						Value[] vals = lv.toValues();
+						for(int i=0; i<(vals.length-1); i++) {
+							sb.append(vals[i].toString());
+							sb.append(',');
+						}
+						sb.append(vals[vals.length-1].toString());
 					}
 				} else {
 					// TODO more efficiently for list et cetera

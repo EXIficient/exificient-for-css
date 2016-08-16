@@ -197,6 +197,9 @@ public class CSStoXML {
 	
 	protected void generateSelectorText(String selectorText, TransformerHandler th) throws SAXException {
 		printStartElement(th, CSSConstants.URI, CSSConstants.SELECTOR_TEXT);
+		// remove commas --> list of strings
+		// e.g, html, address, blockquote --> html address blockquote
+		selectorText = selectorText.replace(",", "");
 		printCharacters(th, selectorText);
 //		// e.g, split body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, address
 //		StringTokenizer st = new StringTokenizer(styleRule.getSelectorText(), ",");

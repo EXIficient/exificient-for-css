@@ -122,9 +122,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.9.1</version><!--2.3.2-->
-        <configuration>
-          <overview>${basedir}/src/main/java/overview.html</overview>
-        </configuration>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -134,6 +131,19 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.siemens.ct.exi.css.EXIficientCMD4CSS</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+</plugin>
 	  <plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-release-plugin</artifactId>

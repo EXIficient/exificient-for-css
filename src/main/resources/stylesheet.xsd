@@ -144,8 +144,8 @@
           <xs:sequence>
             <!-- TODO what is required and what not -->
             <xs:element name="identifier" type="xs:string"/>
-            <xs:element name="listStyle" type="xs:string"/>
-            <xs:element name="separator" type="xs:string"/>
+            <xs:element name="listStyle" type="xs:string" minOccurs="0"/>
+            <xs:element name="separator" type="xs:string" minOccurs="0"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>

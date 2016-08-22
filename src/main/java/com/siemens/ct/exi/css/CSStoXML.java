@@ -52,7 +52,9 @@ import org.w3c.dom.css.CSSStyleSheet;
 import org.w3c.dom.css.CSSUnknownRule;
 import org.w3c.dom.css.CSSValue;
 import org.w3c.dom.css.CSSValueList;
+import org.w3c.dom.css.Counter;
 import org.w3c.dom.css.RGBColor;
+import org.w3c.dom.css.Rect;
 import org.w3c.dom.stylesheets.MediaList;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -367,6 +369,46 @@ public class CSStoXML {
 //				// IF there is an issue the exception is thrown once again
 //			}
 			break;
+		case CSSPrimitiveValue.CSS_COUNTER:
+			Counter counter = primValue.getCounterValue();
+			{
+				printStartElement(th, CSSConstants.URI, CSSConstants.IDENTIFIER);
+				printCharacters(th, counter.getIdentifier());
+				printEndElement(th, CSSConstants.URI, CSSConstants.IDENTIFIER);
+				
+				if(counter.getListStyle() != null && counter.getListStyle().length()> 0) {
+					printStartElement(th, CSSConstants.URI, CSSConstants.LIST_STYLE);
+					printCharacters(th, counter.getListStyle());
+					printEndElement(th, CSSConstants.URI, CSSConstants.LIST_STYLE);					
+				}
+
+				if(counter.getSeparator() != null && counter.getSeparator().length()> 0) {
+					printStartElement(th, CSSConstants.URI, CSSConstants.SEPARATOR);
+					printCharacters(th, counter.getSeparator());
+					printEndElement(th, CSSConstants.URI, CSSConstants.SEPARATOR);					
+				}
+			}
+			break;
+		case CSSPrimitiveValue.CSS_RECT:
+			Rect rect = primValue.getRectValue();
+			{
+				printStartElement(th, CSSConstants.URI, CSSConstants.TOP);
+				printCSSPrimitiveValue(th, rect.getTop());
+				printEndElement(th, CSSConstants.URI, CSSConstants.TOP);
+				
+				printStartElement(th, CSSConstants.URI, CSSConstants.RIGHT);
+				printCSSPrimitiveValue(th, rect.getRight());
+				printEndElement(th, CSSConstants.URI, CSSConstants.RIGHT);
+				
+				printStartElement(th, CSSConstants.URI, CSSConstants.BOTTOM);
+				printCSSPrimitiveValue(th, rect.getBottom());
+				printEndElement(th, CSSConstants.URI, CSSConstants.BOTTOM);
+				
+				printStartElement(th, CSSConstants.URI, CSSConstants.LEFT);
+				printCSSPrimitiveValue(th, rect.getLeft());
+				printEndElement(th, CSSConstants.URI, CSSConstants.LEFT);
+			}
+			 break;
 		case CSSPrimitiveValue.CSS_RGBCOLOR:
 			RGBColor rgbColor = primValue.getRGBColorValue();
 			{

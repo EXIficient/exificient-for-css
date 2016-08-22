@@ -58,6 +58,13 @@ public class CSSConstants {
 	public static final String R = "r";
 	public static final String G = "g";
 	public static final String B = "b";
+	public static final String IDENTIFIER = "identifier";
+	public static final String LIST_STYLE = "listStyle";
+	public static final String SEPARATOR = "separator";
+	public static final String TOP = "top";
+	public static final String RIGHT = "right";
+	public static final String BOTTOM = "bottom";
+	public static final String LEFT = "left";
 	
 	/* primitive Types */
 	public static final String CSS_UNKNOWN = "cssUnknown";

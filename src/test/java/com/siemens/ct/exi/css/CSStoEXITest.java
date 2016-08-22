@@ -95,6 +95,38 @@ public class CSStoEXITest extends TestCase {
 	public void testRules() throws FileNotFoundException, IOException, EXIException, SAXException, TransformerConfigurationException {
 		_test("data/rules.css");
 	}
-
+	
+	@Test
+	public void testAmazon() throws FileNotFoundException, IOException, EXIException, SAXException, TransformerConfigurationException {
+		_test("data/amazon.css");
+	}
+	
+	@Test
+	// Bank of America
+	public void testBoa() throws FileNotFoundException, IOException, EXIException, SAXException, TransformerConfigurationException {
+		_test("data/boa.css");
+	}
+	
+	@Test
+	public void testCapitalone() throws FileNotFoundException, IOException, EXIException, SAXException, TransformerConfigurationException {
+		_test("data/capitalone.css");
+	}
+	
+	@Test
+	public void testFujitsu() throws FileNotFoundException, IOException, EXIException, SAXException, TransformerConfigurationException {
+		_test("data/fujitsu.css");
+	}
+	
+	@Test
+	// Wall Street Journal
+	public void testWSJ() throws FileNotFoundException, IOException, EXIException, SAXException, TransformerConfigurationException {
+		_test("data/wsj.css");
+	}
+	
+	@Test
+	// Wall Street Journal
+	public void testYahooJapan() throws FileNotFoundException, IOException, EXIException, SAXException, TransformerConfigurationException {
+		_test("data/yahoo_japan.css");
+	}
 
 }

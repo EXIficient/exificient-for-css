@@ -17,6 +17,12 @@ html{color:#000;background:#FFF;}
 
 li{list-style:none;}
 
+/* CSS Rect  */
+img {
+    position: absolute;
+    clip: rect(0px,60px,200px,0px);
+}
+
 #p1 {background-color: rgba(255, 0, 0, 0.3);} 
 
 /* CSSMediaRule */

@@ -76,6 +76,14 @@ public class EXItoCSS {
 					sb.append("@page "); // {
 				} else if(CSSConstants.CSS_FONT_FACE_RULE.equals(se.getLocalName())) {
 					sb.append("@font-face {");
+				} else if(CSSConstants.CSS_COUNTER.equals(se.getLocalName())) {
+					sb.append(" counter(");
+				} else if(CSSConstants.CSS_RECT.equals(se.getLocalName())) {
+					sb.append(" rect(");
+				} else if(CSSConstants.LIST_STYLE.equals(se.getLocalName())) {
+					sb.append(", ");
+				} else if(CSSConstants.SEPARATOR.equals(se.getLocalName())) {
+					sb.append(", ");
 				} else if(CSSConstants.HREF.equals(se.getLocalName())) {
 					sb.append("url(\"");
 				} else if(CSSConstants.PRIORITY.equals(se.getLocalName())) {
@@ -153,6 +161,8 @@ public class EXItoCSS {
 					sb.append(",");
 				} else if(CSSConstants.PRIORITY.equals(eeQName.getLocalName())) {
 					sb.append(";");
+				} else if(CSSConstants.TOP.equals(eeQName.getLocalName()) || CSSConstants.RIGHT.equals(eeQName.getLocalName()) || CSSConstants.BOTTOM.equals(eeQName.getLocalName())) {
+					sb.append(",");
 				} else if(CSSConstants.CSS_URI.equals(eeQName.getLocalName())) {
 					sb.append("')");
 				} else if(CSSConstants.MEDIA_LIST.equals(eeQName.getLocalName())) {
@@ -171,6 +181,10 @@ public class EXItoCSS {
 //					if(inMediaRule) {
 //						sb.append("}");
 //					}
+				} else if(CSSConstants.CSS_COUNTER.equals(eeQName.getLocalName())) {
+					sb.append(" ) ");	
+				} else if(CSSConstants.CSS_RECT.equals(eeQName.getLocalName())) {
+					sb.append(" ) ");	
 				}
 				break;
 			case CHARACTERS:

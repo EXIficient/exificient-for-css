@@ -11,7 +11,7 @@ import com.siemens.ct.exi.helpers.DefaultEXIFactory;
 
 public class CSSConstants {
 	
-	public static final String XSD_LOCATION = "/stylesheet.xsd";
+	public static final String XSD_LOCATION = "/exi4css.xsd";
 	public static Grammars EXI_FOR_CSS_GRAMMARS;
 	public static EXIFactory EXI_FACTORY;	
 	

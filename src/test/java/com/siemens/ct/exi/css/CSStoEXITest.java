@@ -41,7 +41,7 @@ public class CSStoEXITest extends TestCase {
 		// executed only once, before the first test
 		if (!setUpIsDone) {
 			ps.println(System.getProperty("java.version"));
-			ps.println("CSS-Name; CSS; YuiCompressed; EXI; EXI_Compr; EXIGzip; GZip; Brotli");
+			ps.println("CSS-Name; CSS; YuiCompressed; EXI; EXI_Compr; EXIGzip; EXIBrotli; GZip; Brotli");
 			setUpIsDone = true;
 		}
 	}
@@ -113,9 +113,12 @@ public class CSStoEXITest extends TestCase {
 		String sEXI = generateEXI4CSS(css, CSSConstants.EXI_FACTORY);
 		String sEXICompr = generateEXI4CSS(css,
 				CSSConstants.EXI_FACTORY_COMPRESSION);
-		String sEXIGzip = generateEXI4CSS(css,
+		String sEXIPreCompr = generateEXI4CSS(css,
 				CSSConstants.EXI_FACTORY_PRE_COMPRESSION);
-		byte[] sEXIGzipBytes = writeGzip(readBytes(new FileInputStream(sEXIGzip)));
+		byte[] sEXIGzipBytes = writeGzip(readBytes(new FileInputStream(
+				sEXIPreCompr)));
+		byte[] sEXIBrotliBytes = writeBrotli(readBytes(new FileInputStream(
+				sEXIPreCompr)));
 		// Yui Compressor
 		Reader cssIn = new FileReader(new File(css));
 		CssCompressor cssCompressor = new CssCompressor(cssIn);
@@ -132,7 +135,8 @@ public class CSStoEXITest extends TestCase {
 		System.out.println(css + "; " + new File(css).length() + "; "
 				+ fCssOut.length() + "; " + new File(sEXI).length() + "; "
 				+ new File(sEXICompr).length() + "; " + sEXIGzipBytes.length
-				+ "; " + gzipCompr.length + "; " + brotliCompr.length);
+				+ "; " + sEXIBrotliBytes.length + "; " + gzipCompr.length
+				+ "; " + brotliCompr.length);
 
 		// read it again
 		EXItoCSS exi2Css = new EXItoCSS();

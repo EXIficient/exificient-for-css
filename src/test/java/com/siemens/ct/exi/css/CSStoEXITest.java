@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Arrays;
 import java.util.zip.GZIPOutputStream;
 
 import javax.xml.transform.TransformerConfigurationException;
@@ -19,6 +20,7 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 import org.meteogroup.jbrotli.Brotli;
+import org.meteogroup.jbrotli.BrotliCompressor;
 import org.meteogroup.jbrotli.BrotliStreamCompressor;
 import org.meteogroup.jbrotli.libloader.BrotliLibraryLoader;
 import org.w3c.css.sac.InputSource;
@@ -71,13 +73,21 @@ public class CSStoEXITest extends TestCase {
 			// e.printStackTrace();
 		}
 		if (loadedDll) {
-			// byte[] inBuf =
-			// "Brotli: a new compression algorithm for the internet. Now available for Java!".getBytes();
-			boolean doFlush = true;
-			BrotliStreamCompressor streamCompressor = new BrotliStreamCompressor(
-					Brotli.DEFAULT_PARAMETER);
-			brotliCompr = streamCompressor.compressArray(b2compress, doFlush);
-			streamCompressor.close();
+			boolean defaultDictionary = true;
+			if(defaultDictionary) {
+				// byte[] inBuf =
+				// "Brotli: a new compression algorithm for the internet. Now available for Java!".getBytes();
+				boolean doFlush = true;
+				BrotliStreamCompressor streamCompressor = new BrotliStreamCompressor(
+						Brotli.DEFAULT_PARAMETER);
+				brotliCompr = streamCompressor.compressArray(b2compress, doFlush);
+				streamCompressor.close();
+			} else {
+				byte[] compressedBuf = new byte[b2compress.length];
+				BrotliCompressor compressor = new BrotliCompressor();
+				int outLength = compressor.compress(Brotli.DEFAULT_PARAMETER, b2compress, compressedBuf);
+				brotliCompr = Arrays.copyOfRange(b2compress, 0, outLength);
+			}
 		} else {
 			// DLL loading error
 			brotliCompr = new byte[0];

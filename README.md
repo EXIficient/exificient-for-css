@@ -11,7 +11,7 @@ EXI for CSS (Explorative) - How EXI can be used to represent CSS efficiently w.r
 ## Document Object Model (DOM) Style Specification
 
 We use the [CSS Parser](http://cssparser.sourceforge.net/) which reads Cascading Style Sheets (CSS3, CSS2.1, CSS2, and CSS1) and generates
-a [Document Object Model Level 2 Style](http://www.w3.org/TR/2000/REC-DOM-Level-2-Style-20001113).
+a [CSS Object Model (CSSOM)](https://www.w3.org/TR/cssom-1/).
 
 By means of an XML schema we then efficiently represent the style information with EXI.
 

@@ -36,7 +36,7 @@ p {
 }
 ```
 
-### XML (efficiently represented with EXI)
+### CSS Object Model (visualized as XML)
 
 ```xml
 <stylesheet>

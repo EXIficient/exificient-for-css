@@ -43,7 +43,7 @@ public class CSStoEXITest extends TestCase {
 		// executed only once, before the first test
 		if (!setUpIsDone) {
 			ps.println(System.getProperty("java.version"));
-			ps.println("CSS-Name; CSS; YuiCompressed; EXI; EXI_Compr; EXIGzip; EXIBrotli; GZip; Brotli");
+			ps.println("CSS-Name; CSS; YuiCompressed; EXI; EXI_DTRM; EXI_Compr; EXIGzip; EXIBrotli; GZip; Brotli");
 			setUpIsDone = true;
 		}
 	}
@@ -74,18 +74,20 @@ public class CSStoEXITest extends TestCase {
 		}
 		if (loadedDll) {
 			boolean defaultDictionary = true;
-			if(defaultDictionary) {
+			if (defaultDictionary) {
 				// byte[] inBuf =
 				// "Brotli: a new compression algorithm for the internet. Now available for Java!".getBytes();
 				boolean doFlush = true;
 				BrotliStreamCompressor streamCompressor = new BrotliStreamCompressor(
 						Brotli.DEFAULT_PARAMETER);
-				brotliCompr = streamCompressor.compressArray(b2compress, doFlush);
+				brotliCompr = streamCompressor.compressArray(b2compress,
+						doFlush);
 				streamCompressor.close();
 			} else {
 				byte[] compressedBuf = new byte[b2compress.length];
 				BrotliCompressor compressor = new BrotliCompressor();
-				int outLength = compressor.compress(Brotli.DEFAULT_PARAMETER, b2compress, compressedBuf);
+				int outLength = compressor.compress(Brotli.DEFAULT_PARAMETER,
+						b2compress, compressedBuf);
 				brotliCompr = Arrays.copyOfRange(b2compress, 0, outLength);
 			}
 		} else {
@@ -121,6 +123,7 @@ public class CSStoEXITest extends TestCase {
 			SAXException, TransformerConfigurationException {
 		// EXI for CSS
 		String sEXI = generateEXI4CSS(css, CSSConstants.EXI_FACTORY);
+		String sEXIDtrm = generateEXI4CSS(css, CSSConstants.EXI_FACTORY_DTRM);
 		String sEXICompr = generateEXI4CSS(css,
 				CSSConstants.EXI_FACTORY_COMPRESSION);
 		String sEXIPreCompr = generateEXI4CSS(css,
@@ -144,6 +147,7 @@ public class CSStoEXITest extends TestCase {
 		//
 		System.out.println(css + "; " + new File(css).length() + "; "
 				+ fCssOut.length() + "; " + new File(sEXI).length() + "; "
+				+ new File(sEXIDtrm).length() + "; "
 				+ new File(sEXICompr).length() + "; " + sEXIGzipBytes.length
 				+ "; " + sEXIBrotliBytes.length + "; " + gzipCompr.length
 				+ "; " + brotliCompr.length);

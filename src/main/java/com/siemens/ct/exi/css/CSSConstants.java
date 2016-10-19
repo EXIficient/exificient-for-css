@@ -2,13 +2,21 @@ package com.siemens.ct.exi.css;
 
 import java.io.InputStream;
 
+import javax.xml.namespace.QName;
+
 import com.siemens.ct.exi.CodingMode;
 import com.siemens.ct.exi.EXIFactory;
 import com.siemens.ct.exi.EncodingOptions;
 import com.siemens.ct.exi.FidelityOptions;
 import com.siemens.ct.exi.GrammarFactory;
+import com.siemens.ct.exi.context.QNameContext;
+import com.siemens.ct.exi.datatype.Datatype;
 import com.siemens.ct.exi.exceptions.EXIException;
 import com.siemens.ct.exi.grammars.Grammars;
+import com.siemens.ct.exi.grammars.event.Characters;
+import com.siemens.ct.exi.grammars.event.EventType;
+import com.siemens.ct.exi.grammars.grammar.SchemaInformedFirstStartTagGrammar;
+import com.siemens.ct.exi.grammars.production.Production;
 import com.siemens.ct.exi.helpers.DefaultEXIFactory;
 
 public class CSSConstants {
@@ -16,6 +24,7 @@ public class CSSConstants {
 	public static final String XSD_LOCATION = "/exi4css.xsd";
 	public static Grammars EXI_FOR_CSS_GRAMMARS;
 	public static EXIFactory EXI_FACTORY;
+	public static EXIFactory EXI_FACTORY_DTRM;
 	public static EXIFactory EXI_FACTORY_COMPRESSION;
 	public static EXIFactory EXI_FACTORY_PRE_COMPRESSION;
 	
@@ -27,6 +36,21 @@ public class CSSConstants {
 			EXI_FACTORY = DefaultEXIFactory.newInstance();
 			EXI_FACTORY.setFidelityOptions(FidelityOptions.createStrict());
 			EXI_FACTORY.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS); // use XML schema
+			
+			EXI_FACTORY_DTRM = DefaultEXIFactory.newInstance();
+			// Note: do not use strict if we still want to allow property names such as "-moz-user-select"
+			// EXI_FACTORY_DTRM.setFidelityOptions(FidelityOptions.createStrict()); 
+			EXI_FACTORY_DTRM.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS); // use XML schema
+			QName[] dtrMapTypes = {new QName("", "propertyType")};
+			QName qnCSS = new QName("urn:javascript", "cssProperty");
+			QName[] dtrMapRepresentations = {qnCSS};
+			QNameContext qnc = EXI_FOR_CSS_GRAMMARS.getGrammarContext().getGrammarUriContext("").getQNameContext("cssProperty");
+			SchemaInformedFirstStartTagGrammar tg = qnc.getTypeGrammar();
+			Production prod = tg.getProduction(EventType.CHARACTERS);
+			Characters ch = (Characters) prod.getEvent();
+			Datatype dt = ch.getDatatype();
+			EXI_FACTORY_DTRM.registerDatatypeRepresentationMapDatatype(qnCSS, dt);
+			EXI_FACTORY_DTRM.setDatatypeRepresentationMap(dtrMapTypes, dtrMapRepresentations);
 			
 			EXI_FACTORY_COMPRESSION = DefaultEXIFactory.newInstance();
 			EXI_FACTORY_COMPRESSION.setFidelityOptions(FidelityOptions.createStrict());

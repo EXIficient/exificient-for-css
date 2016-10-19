@@ -44,16 +44,27 @@ import com.siemens.ct.exi.exceptions.EXIException;
 public class CSStoEXI {
 
 	public static void main(String[] args) throws IOException, EXIException, SAXException, TransformerConfigurationException {
+		String sCSS;
+		String sXML;
+		String sEXI;
 		if(args == null || args.length != 1) {
 			System.out.println("Usage: <executable> input.css");
-		} else {
 			CSStoEXI css2Exi = new CSStoEXI();
-			String sXML = args[0] + CSSConstants.SUFFIX_XML;
-			String sEXI = args[0] + CSSConstants.SUFFIX_EXI;
-			
+			sCSS = "data/rules.css";
+			// EXIFactory exiFactory = CSSConstants.EXI_FACTORY;
+			EXIFactory exiFactory = CSSConstants.EXI_FACTORY_DTRM;
+			sXML = File.createTempFile("css", ".xml").getAbsolutePath();
+			sEXI = File.createTempFile("css", ".exi").getAbsolutePath();
+			css2Exi.generate(sCSS, exiFactory, sXML, sEXI);
+		} else {
+			// e.g, data/rules.css
+			CSStoEXI css2Exi = new CSStoEXI();
+			sCSS = args[0];
+			sXML = args[0] + CSSConstants.SUFFIX_XML;
+			sEXI = args[0] + CSSConstants.SUFFIX_EXI;
 			css2Exi.generate(args[0], CSSConstants.EXI_FACTORY, sXML, sEXI);
-			System.out.println("CSS '" + args[0] + "'(" + new File(args[0]).length() + ") to EXI '" + sEXI + "'(" + new File(sEXI).length() + ")");
 		}
+		System.out.println("CSS '" + sCSS + "'(" + new File(sCSS).length() + ") to EXI '" + sEXI + "'(" + new File(sEXI).length() + ")");
 	}
 	
 	public void generate(String fCSS, EXIFactory exiFactory, String fXML, String fEXI) throws IOException, EXIException, SAXException, TransformerConfigurationException {

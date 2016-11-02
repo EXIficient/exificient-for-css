@@ -178,6 +178,10 @@ public class CSStoXML {
 		for (int j = 0; j < style.getLength(); j++) {
 			String property = style.item(j);
 			
+			// CSS syntax is case-insensitive within the ASCII range
+			// see https://www.w3.org/TR/CSS2/syndata.html#characters
+			property = property.toLowerCase();
+			
 			printStartElement(th, CSSConstants.URI, CSSConstants.PROPERTY);
 			printCharacters(th, property);
 			printEndElement(th, CSSConstants.URI, CSSConstants.PROPERTY);

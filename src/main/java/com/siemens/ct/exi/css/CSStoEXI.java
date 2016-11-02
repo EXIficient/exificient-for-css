@@ -50,9 +50,22 @@ public class CSStoEXI {
 		if(args == null || args.length != 1) {
 			System.out.println("Usage: <executable> input.css");
 			CSStoEXI css2Exi = new CSStoEXI();
-			sCSS = "data/rules.css";
-			// EXIFactory exiFactory = CSSConstants.EXI_FACTORY;
-			EXIFactory exiFactory = CSSConstants.EXI_FACTORY_DTRM;
+			
+			sCSS = "data/boa.css";
+//			sCSS = "data/w3c.css";
+//			sCSS = "data/wsj.css";
+//			sCSS = "data/rules.css";
+//			sCSS = "data/fujitsu.css";
+//			sCSS = "data/amazon.css";
+//			sCSS = "data/css2_1.css";
+//			sCSS = "data/css3_1.css";
+//			sCSS = "data/design.css";
+//			sCSS = "data/module.css";
+//			sCSS = "data/yahoo_japan.css";
+//			sCSS = "data/capitalone.css";
+
+			EXIFactory exiFactory = CSSConstants.EXI_FACTORY;
+			// EXIFactory exiFactory = CSSConstants.EXI_FACTORY_DTRM;
 			sXML = File.createTempFile("css", ".xml").getAbsolutePath();
 			sEXI = File.createTempFile("css", ".exi").getAbsolutePath();
 			css2Exi.generate(sCSS, exiFactory, sXML, sEXI);

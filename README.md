@@ -91,3 +91,33 @@ p {
     </cssStyleRule>
 </stylesheet>
 ```
+
+
+## Early Results
+
+See test-data in https://github.com/EXIficient/exificient-for-css/tree/master/data.
+
+### Compression
+
+
+| TestCase     | CSS [Size in Bytes] | Minified CSS [Size in Bytes]  | EXI 4 CSS [Size in Bytes]  |
+| ------------- | -------------:|  -------------:| -----:|
+| data/boa.css	|  120184	| 106666	| 34894
+| data/w3c.css	| 12714	| 12115	| 6215
+| data/wsj.css	| 96605	| 79114	| 34367
+| data/rules.css	| 1259	| 817	| 609
+| data/fujitsu.css	| 60085	| 51979	| 19366
+| data/amazon.css	| 129740	| 107724	| 57436
+| data/css2_1.css	| 2855	| 1884	| 1392
+| data/css3_1.css	| 521	| 328	| 234
+| data/design.css	| 166	| 111	| 114
+| data/module.css	| 2056	| 1670	| 785
+| data/yahoo_japan.css	| 52237	| 42645	| 20329
+| data/capitalone.css	| 44676	| 36883	| 17552
+
+
+On average "EXI for CSS" is about 43% of the original CSS filesize!
+
+![Compression Figure](compression.png)
+
+

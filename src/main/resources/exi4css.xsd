@@ -90,6 +90,7 @@
   </xs:element>
   <xs:simpleType name="propertyType">
     <xs:restriction base="xs:string"/>
+    <!--<xs:restriction base="cssProperty"/>-->
   </xs:simpleType>
 
   <xs:element name="cssValue">
@@ -457,7 +458,7 @@
       <xs:enumeration value="marquee-speed"/>
       <xs:enumeration value="marquee-style"/>
       
-      <!-- TODO missing stuff !? -->
+      <!-- TODO missing stuff (Exploration) !? -->
       <!-- @page -->
       <xs:enumeration value="size"/>
       <!-- @font-face -->
@@ -465,6 +466,32 @@
 
       <!-- Other -->
       <xs:enumeration value="pointer-events"/>
+      <xs:enumeration value="text-rendering"/>
+      <xs:enumeration value="unicode-range"/>
+      
+      <xs:enumeration value="-moz-border-top-colors"/>
+      <xs:enumeration value="-moz-border-bottom-colors"/>
+      <xs:enumeration value="-moz-border-left-colors"/>
+      <xs:enumeration value="-moz-border-right-colors"/>
+      <xs:enumeration value="-moz-transition-property"/>
+      <xs:enumeration value="-moz-user-select"/>
+      <xs:enumeration value="-moz-border-right-colors"/>
+      <xs:enumeration value="-moz-transition-duration"/>
+      <xs:enumeration value="-moz-border-radius"/>
+      <xs:enumeration value="-moz-box-shadow"/>
+ 
+      <xs:enumeration value="-o-transition-property"/>
+      <xs:enumeration value="-o-transition-duration"/>     
+      
+      <xs:enumeration value="-webkit-transition-duration"/>
+      <xs:enumeration value="-webkit-transition-property"/>
+      <xs:enumeration value="-webkit-border-radius"/>
+      <xs:enumeration value="-webkit-box-shadow"/>
+      
+      
+      
+      <xs:enumeration value=""/>
+      <xs:enumeration value=""/>
       
     </xs:restriction>
   </xs:simpleType>

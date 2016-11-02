@@ -24,7 +24,7 @@ public class CSSConstants {
 	public static final String XSD_LOCATION = "/exi4css.xsd";
 	public static Grammars EXI_FOR_CSS_GRAMMARS;
 	public static EXIFactory EXI_FACTORY;
-	public static EXIFactory EXI_FACTORY_DTRM;
+//	public static EXIFactory EXI_FACTORY_DTRM;
 	public static EXIFactory EXI_FACTORY_COMPRESSION;
 	public static EXIFactory EXI_FACTORY_PRE_COMPRESSION;
 	
@@ -37,20 +37,38 @@ public class CSSConstants {
 			EXI_FACTORY.setFidelityOptions(FidelityOptions.createStrict());
 			EXI_FACTORY.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS); // use XML schema
 			
-			EXI_FACTORY_DTRM = DefaultEXIFactory.newInstance();
-			// Note: do not use strict if we still want to allow property names such as "-moz-user-select"
-			// EXI_FACTORY_DTRM.setFidelityOptions(FidelityOptions.createStrict()); 
-			EXI_FACTORY_DTRM.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS); // use XML schema
-			QName[] dtrMapTypes = {new QName("", "propertyType")};
-			QName qnCSS = new QName("urn:javascript", "cssProperty");
-			QName[] dtrMapRepresentations = {qnCSS};
-			QNameContext qnc = EXI_FOR_CSS_GRAMMARS.getGrammarContext().getGrammarUriContext("").getQNameContext("cssProperty");
-			SchemaInformedFirstStartTagGrammar tg = qnc.getTypeGrammar();
-			Production prod = tg.getProduction(EventType.CHARACTERS);
-			Characters ch = (Characters) prod.getEvent();
-			Datatype dt = ch.getDatatype();
-			EXI_FACTORY_DTRM.registerDatatypeRepresentationMapDatatype(qnCSS, dt);
-			EXI_FACTORY_DTRM.setDatatypeRepresentationMap(dtrMapTypes, dtrMapRepresentations);
+//			 QName[] dtrMapTypes = {new QName("", "propertyType")};
+//			 QName qnCSS = new QName("urn:javascript", "cssProperty");
+//			 QName[] dtrMapRepresentations = {qnCSS};
+//			 QNameContext qnc = EXI_FOR_CSS_GRAMMARS.getGrammarContext().getGrammarUriContext("").getQNameContext("cssProperty");
+//			 SchemaInformedFirstStartTagGrammar tg = qnc.getTypeGrammar();
+//			 Production prod = tg.getProduction(EventType.CHARACTERS);
+//			 Characters ch = (Characters) prod.getEvent();
+//			 Datatype dt = ch.getDatatype();
+			
+//			QName[] dtrMapTypes = {new QName("http://www.w3.org/2001/XMLSchema", "decimal")};
+//			QName[] dtrMapRepresentations = {new QName("http://www.w3.org/2009/exi", "string")};
+
+
+//			EXI_FACTORY.setDatatypeRepresentationMap(dtrMapTypes, dtrMapRepresentations);
+//			 EXI_FACTORY.registerDatatypeRepresentationMapDatatype(qnCSS, dt);
+			
+			
+//			EXI_FACTORY_DTRM = EXI_FACTORY;
+//			EXI_FACTORY_DTRM = DefaultEXIFactory.newInstance();
+//			// Note: do not use strict if you still want to allow unknown property names such as "-moz-user-select"
+//			EXI_FACTORY_DTRM.setFidelityOptions(FidelityOptions.createStrict()); 
+//			EXI_FACTORY_DTRM.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS); // use XML schema
+//			QName[] dtrMapTypes = {new QName("", "propertyType")};
+//			QName qnCSS = new QName("urn:javascript", "cssProperty");
+//			QName[] dtrMapRepresentations = {qnCSS};
+//			QNameContext qnc = EXI_FOR_CSS_GRAMMARS.getGrammarContext().getGrammarUriContext("").getQNameContext("cssProperty");
+//			SchemaInformedFirstStartTagGrammar tg = qnc.getTypeGrammar();
+//			Production prod = tg.getProduction(EventType.CHARACTERS);
+//			Characters ch = (Characters) prod.getEvent();
+//			Datatype dt = ch.getDatatype();
+//			EXI_FACTORY_DTRM.setDatatypeRepresentationMap(dtrMapTypes, dtrMapRepresentations);
+//			EXI_FACTORY_DTRM.registerDatatypeRepresentationMapDatatype(qnCSS, dt);
 			
 			EXI_FACTORY_COMPRESSION = DefaultEXIFactory.newInstance();
 			EXI_FACTORY_COMPRESSION.setFidelityOptions(FidelityOptions.createStrict());

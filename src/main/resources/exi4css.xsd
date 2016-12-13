@@ -465,6 +465,7 @@
       <xs:enumeration value="src"/>
 
       <!-- Other -->
+      <!--
       <xs:enumeration value="pointer-events"/>
       <xs:enumeration value="text-rendering"/>
       <xs:enumeration value="unicode-range"/>
@@ -487,11 +488,7 @@
       <xs:enumeration value="-webkit-transition-property"/>
       <xs:enumeration value="-webkit-border-radius"/>
       <xs:enumeration value="-webkit-box-shadow"/>
-      
-      
-      
-      <xs:enumeration value=""/>
-      <xs:enumeration value=""/>
+        -->
       
     </xs:restriction>
   </xs:simpleType>

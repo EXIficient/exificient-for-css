@@ -125,12 +125,12 @@ public class CSStoEXITest extends TestCase {
 			SAXException, TransformerConfigurationException {
 		// EXI for CSS
 		String sEXI = generateEXI4CSS(css, CSSConstants.EXI_FACTORY);
-		String sEXIPrePop = generateEXI4CSS(css, CSSConstants.EXI_FACTORY_PRE_POPULATED);
+		String sEXIPrePop = generateEXI4CSS(css, CSSConstants.EXI_FACTORY_DTRM);
 		// String sEXIDtrm = generateEXI4CSS(css, CSSConstants.EXI_FACTORY_DTRM);
 		String sEXICompr = generateEXI4CSS(css,
 				CSSConstants.EXI_FACTORY_COMPRESSION);
 		String sEXIPrePopCompr = generateEXI4CSS(css,
-				CSSConstants.EXI_FACTORY_COMPRESSION_PRE_POPULATED);
+				CSSConstants.EXI_FACTORY_COMPRESSION_DTRM);
 		String sEXIPreCompr = generateEXI4CSS(css,
 				CSSConstants.EXI_FACTORY_PRE_COMPRESSION);
 		byte[] sEXIGzipBytes = writeGzip(readBytes(new FileInputStream(

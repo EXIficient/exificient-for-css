@@ -1,35 +1,35 @@
 package com.siemens.ct.exi.css;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.InputStream;
-import java.io.PrintStream;
+
+import javax.xml.namespace.QName;
 
 import com.siemens.ct.exi.CodingMode;
 import com.siemens.ct.exi.EXIFactory;
-import com.siemens.ct.exi.EncodingOptions;
 import com.siemens.ct.exi.FidelityOptions;
 import com.siemens.ct.exi.GrammarFactory;
-import com.siemens.ct.exi.exceptions.EXIException;
+import com.siemens.ct.exi.context.QNameContext;
+import com.siemens.ct.exi.datatype.Datatype;
 import com.siemens.ct.exi.grammars.Grammars;
+import com.siemens.ct.exi.grammars.event.Characters;
+import com.siemens.ct.exi.grammars.event.EventType;
+import com.siemens.ct.exi.grammars.grammar.SchemaInformedFirstStartTagGrammar;
+import com.siemens.ct.exi.grammars.production.Production;
 import com.siemens.ct.exi.helpers.DefaultEXIFactory;
 
 public class CSSConstants {
 	
 	public static final String XSD_LOCATION = "/exi4css.xsd";
 	public static Grammars EXI_FOR_CSS_GRAMMARS;
-	public static Grammars EXI_FOR_CSS_GRAMMARS_PRE_POPULATED;
+//	public static Grammars EXI_FOR_CSS_GRAMMARS_PRE_POPULATED;
 	public static EXIFactory EXI_FACTORY;
-	public static EXIFactory EXI_FACTORY_PRE_POPULATED;
-//	public static EXIFactory EXI_FACTORY_DTRM;
+	public static EXIFactory EXI_FACTORY_DTRM;
 	public static EXIFactory EXI_FACTORY_COMPRESSION;
-	public static EXIFactory EXI_FACTORY_COMPRESSION_PRE_POPULATED;
+	public static EXIFactory EXI_FACTORY_COMPRESSION_DTRM;
 	public static EXIFactory EXI_FACTORY_PRE_COMPRESSION;
-	public static EXIFactory EXI_FACTORY_PRE_COMPRESSION_PRE_POPULATED;
+	public static EXIFactory EXI_FACTORY_PRE_COMPRESSION_DTRM;
 	public static EXIFactory EXI_FACTORY_BYTE_PACKED;
-	public static EXIFactory EXI_FACTORY_BYTE_PACKED_PRE_POPULATED;
+	public static EXIFactory EXI_FACTORY_BYTE_PACKED_PRE_DTRM;
 	
 	static {
 		try {
@@ -72,7 +72,7 @@ public class CSSConstants {
 //			Datatype dt = ch.getDatatype();
 //			EXI_FACTORY_DTRM.setDatatypeRepresentationMap(dtrMapTypes, dtrMapRepresentations);
 //			EXI_FACTORY_DTRM.registerDatatypeRepresentationMapDatatype(qnCSS, dt);
-			
+
 			EXI_FACTORY_COMPRESSION = DefaultEXIFactory.newInstance();
 			EXI_FACTORY_COMPRESSION.setFidelityOptions(FidelityOptions.createStrict());
 			EXI_FACTORY_COMPRESSION.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS); // use XML schema
@@ -90,39 +90,61 @@ public class CSSConstants {
 			EXI_FACTORY_BYTE_PACKED.setCodingMode(CodingMode.BYTE_PACKED);
 			
 			// some experiments with pre-populated property names
-			InputStream isXsd2 = CSSConstants.class.getResourceAsStream(CSSConstants.XSD_LOCATION);
-			int ch;
-			StringBuilder sb = new StringBuilder();
-			while((ch = isXsd2.read()) != -1) {
-				sb.append((char)ch);
-			}
-			String s = sb.toString();
-			s = s.replace("<xs:restriction base=\"xs:string\"/>", "<xs:restriction base=\"cssProperty\"/>");
-			File f = File.createTempFile("exi4css", ".xsd");
+//			InputStream isXsd2 = CSSConstants.class.getResourceAsStream(CSSConstants.XSD_LOCATION);
+//			int ch;
+//			StringBuilder sb = new StringBuilder();
+//			while((ch = isXsd2.read()) != -1) {
+//				sb.append((char)ch);
+//			}
+//			String s = sb.toString();
+//			s = s.replace("<xs:restriction base=\"xs:string\"/>", "<xs:restriction base=\"cssProperty\"/>");
+//			File f = File.createTempFile("exi4css", ".xsd");
+//			
+//			FileWriter fw = new FileWriter(f);
+//			fw.write(s);
+//            fw.close();
+//            
+//			EXI_FOR_CSS_GRAMMARS_PRE_POPULATED = GrammarFactory.newInstance().createGrammars(new FileInputStream(f));
+            
 			
-			FileWriter fw = new FileWriter(f);
-			fw.write(s);
-            fw.close();
-            
-			EXI_FOR_CSS_GRAMMARS_PRE_POPULATED = GrammarFactory.newInstance().createGrammars(new FileInputStream(f));
-            
+			QName[] dtrMapTypes = {new QName("", "propertyType")};
+			QName qnCSS = new QName("urn:javascript", "cssProperty");
+			QName[] dtrMapRepresentations = {qnCSS};
+			QNameContext qnc = EXI_FOR_CSS_GRAMMARS.getGrammarContext().getGrammarUriContext("").getQNameContext("cssProperty");
+			SchemaInformedFirstStartTagGrammar tg = qnc.getTypeGrammar();
+			Production prod = tg.getProduction(EventType.CHARACTERS);
+			Characters ch = (Characters) prod.getEvent();
+			Datatype dt = ch.getDatatype();		
+			
+			
+//			EXI_FACTORY.setDatatypeRepresentationMap(dtrMapTypes, dtrMapRepresentations);
+//			EXI_FACTORY.registerDatatypeRepresentationMapDatatype(qnCSS, dt);
+			
 			// Note: no STRICT given to future property names
-            EXI_FACTORY_PRE_POPULATED = DefaultEXIFactory.newInstance();
-            // EXI_FACTORY_PRE_POPULATED.setFidelityOptions(FidelityOptions.createStrict());
-            EXI_FACTORY_PRE_POPULATED.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS_PRE_POPULATED); // use XML schema
+            EXI_FACTORY_DTRM = DefaultEXIFactory.newInstance();
+//             EXI_FACTORY_DTRM.setFidelityOptions(FidelityOptions.createStrict());
+            EXI_FACTORY_DTRM.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS); // use XML schema
+            EXI_FACTORY_DTRM.setDatatypeRepresentationMap(dtrMapTypes, dtrMapRepresentations);
+            EXI_FACTORY_DTRM.registerDatatypeRepresentationMapDatatype(qnCSS, dt);
             
-			EXI_FACTORY_COMPRESSION_PRE_POPULATED = DefaultEXIFactory.newInstance();
-			// EXI_FACTORY_COMPRESSION_PRE_POPULATED.setFidelityOptions(FidelityOptions.createStrict());
-			EXI_FACTORY_COMPRESSION_PRE_POPULATED.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS_PRE_POPULATED); // use XML schema
-			EXI_FACTORY_COMPRESSION_PRE_POPULATED.setCodingMode(CodingMode.COMPRESSION); // use deflate compression for larger XML files
+			EXI_FACTORY_COMPRESSION_DTRM = DefaultEXIFactory.newInstance();
+			// EXI_FACTORY_COMPRESSION_DTRM.setFidelityOptions(FidelityOptions.createStrict());
+			EXI_FACTORY_COMPRESSION_DTRM.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS); // use XML schema
+			EXI_FACTORY_COMPRESSION_DTRM.setCodingMode(CodingMode.COMPRESSION); // use deflate compression for larger XML files
+			EXI_FACTORY_COMPRESSION_DTRM.setDatatypeRepresentationMap(dtrMapTypes, dtrMapRepresentations);
+			EXI_FACTORY_COMPRESSION_DTRM.registerDatatypeRepresentationMapDatatype(qnCSS, dt);
 			
-			EXI_FACTORY_PRE_COMPRESSION_PRE_POPULATED = DefaultEXIFactory.newInstance();
-			EXI_FACTORY_PRE_COMPRESSION_PRE_POPULATED.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS_PRE_POPULATED); // use XML schema
-			EXI_FACTORY_PRE_COMPRESSION_PRE_POPULATED.setCodingMode(CodingMode.PRE_COMPRESSION); // use pre-compression for following generic compression
+			EXI_FACTORY_PRE_COMPRESSION_DTRM = DefaultEXIFactory.newInstance();
+			EXI_FACTORY_PRE_COMPRESSION_DTRM.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS); // use XML schema
+			EXI_FACTORY_PRE_COMPRESSION_DTRM.setCodingMode(CodingMode.PRE_COMPRESSION); // use pre-compression for following generic compression
+			EXI_FACTORY_PRE_COMPRESSION_DTRM.setDatatypeRepresentationMap(dtrMapTypes, dtrMapRepresentations);
+			EXI_FACTORY_PRE_COMPRESSION_DTRM.registerDatatypeRepresentationMapDatatype(qnCSS, dt);
 			
-			EXI_FACTORY_BYTE_PACKED_PRE_POPULATED = DefaultEXIFactory.newInstance();
-			EXI_FACTORY_BYTE_PACKED_PRE_POPULATED.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS_PRE_POPULATED); // use XML schema
-			EXI_FACTORY_BYTE_PACKED_PRE_POPULATED.setCodingMode(CodingMode.BYTE_PACKED);
+			EXI_FACTORY_BYTE_PACKED_PRE_DTRM = DefaultEXIFactory.newInstance();
+			EXI_FACTORY_BYTE_PACKED_PRE_DTRM.setGrammars(CSSConstants.EXI_FOR_CSS_GRAMMARS); // use XML schema
+			EXI_FACTORY_BYTE_PACKED_PRE_DTRM.setCodingMode(CodingMode.BYTE_PACKED);
+			EXI_FACTORY_BYTE_PACKED_PRE_DTRM.setDatatypeRepresentationMap(dtrMapTypes, dtrMapRepresentations);
+			EXI_FACTORY_BYTE_PACKED_PRE_DTRM.registerDatatypeRepresentationMapDatatype(qnCSS, dt);
 			
 		} catch (Exception e) {
 			System.err.println("Not able to load EXI grammars from " + XSD_LOCATION);

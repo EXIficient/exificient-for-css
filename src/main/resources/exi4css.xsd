@@ -5,11 +5,11 @@
       <xs:sequence>
 
         <xs:element name="cssCharsetRule" minOccurs="0" type="xs:string"/>
-        
+
         <xs:element name="cssImportRule" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="href" type="xs:string" />
+              <xs:element name="href" type="xs:string"/>
               <xs:element name="mediaList" minOccurs="0">
                 <xs:simpleType>
                   <xs:list itemType="xs:string"/>
@@ -18,15 +18,15 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        
+
         <xs:sequence minOccurs="0" maxOccurs="unbounded">
-          
+
           <xs:element ref="cssStyleRule" minOccurs="0"/>
-          
+
           <xs:element name="cssFontFaceRule" minOccurs="0">
             <xs:complexType>
               <xs:sequence>
-                <xs:element ref="style" />
+                <xs:element ref="style"/>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -39,23 +39,23 @@
                     <xs:list itemType="xs:string"/>
                   </xs:simpleType>
                 </xs:element>
-                
+
                 <xs:element ref="cssStyleRule" minOccurs="0" maxOccurs="unbounded"/>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
-          
+
           <xs:element name="cssPageRule" minOccurs="0">
             <xs:complexType>
               <xs:sequence>
-                <xs:element ref="selectorText" />
-                <xs:element ref="style" />
+                <xs:element ref="selectorText"/>
+                <xs:element ref="style"/>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
-          
+
           <xs:element name="cssUnknownRule" minOccurs="0" type="xs:string"/>
-          
+
         </xs:sequence>
 
       </xs:sequence>
@@ -65,12 +65,12 @@
   <xs:element name="cssStyleRule">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="selectorText" />
-        <xs:element ref="style" />
+        <xs:element ref="selectorText"/>
+        <xs:element ref="style"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  
+
   <!-- selectorText: one string vs. separate selectors -->
   <!--  <xs:element name="selectorText" type="xs:string"/>  -->
   <xs:element name="selectorText">
@@ -78,7 +78,7 @@
       <xs:list itemType="xs:string"/>
     </xs:simpleType>
   </xs:element>
-  
+
   <xs:element name="style">
     <xs:complexType>
       <xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -89,6 +89,292 @@
     </xs:complexType>
   </xs:element>
   <xs:simpleType name="propertyType">
+    <xs:annotation>
+      <xs:appinfo exi:prepopulateValues="true" xmlns:exi="http://www.w3.org/2009/exi">
+        <!-- CSS property list -->
+        <!-- taken from http://www.w3schools.com/cssref/ -->
+        <xs:restriction base="xs:string">
+          <!-- Color Properties -->
+          <xs:enumeration value="color"/>
+          <xs:enumeration value="opacity"/>
+
+          <!-- Background and Border Properties -->
+          <xs:enumeration value="background"/>
+          <xs:enumeration value="background-attachment"/>
+          <xs:enumeration value="background-blend-mode"/>
+          <xs:enumeration value="background-color"/>
+          <xs:enumeration value="background-image"/>
+          <xs:enumeration value="background-position"/>
+          <xs:enumeration value="background-repeat"/>
+          <xs:enumeration value="background-clip"/>
+          <xs:enumeration value="background-origin"/>
+          <xs:enumeration value="background-size"/>
+          <xs:enumeration value="border"/>
+          <xs:enumeration value="border-bottom"/>
+          <xs:enumeration value="border-bottom-color"/>
+          <xs:enumeration value="border-bottom-left-radius"/>
+          <xs:enumeration value="border-bottom-right-radius"/>
+          <xs:enumeration value="border-bottom-style"/>
+          <xs:enumeration value="border-bottom-width"/>
+          <xs:enumeration value="border-color"/>
+          <xs:enumeration value="border-image"/>
+          <xs:enumeration value="border-image-outset"/>
+          <xs:enumeration value="border-image-repeat"/>
+          <xs:enumeration value="border-image-slice"/>
+          <xs:enumeration value="border-image-source"/>
+          <xs:enumeration value="border-image-width"/>
+          <xs:enumeration value="border-left"/>
+          <xs:enumeration value="border-left-color"/>
+          <xs:enumeration value="border-left-style"/>
+          <xs:enumeration value="border-left-width"/>
+          <xs:enumeration value="border-radius"/>
+          <xs:enumeration value="border-right"/>
+          <xs:enumeration value="border-right-color"/>
+          <xs:enumeration value="border-right-style"/>
+          <xs:enumeration value="border-right-width"/>
+          <xs:enumeration value="border-style"/>
+          <xs:enumeration value="border-top"/>
+          <xs:enumeration value="border-top-color"/>
+          <xs:enumeration value="border-top-left-radius"/>
+          <xs:enumeration value="border-top-right-radius"/>
+          <xs:enumeration value="border-top-style"/>
+          <xs:enumeration value="border-top-width"/>
+          <xs:enumeration value="border-width"/>
+          <xs:enumeration value="box-decoration-break"/>
+          <xs:enumeration value="box-shadow"/>
+
+          <!-- Basic Box Properties -->
+          <xs:enumeration value="bottom"/>
+          <xs:enumeration value="clear"/>
+          <xs:enumeration value="clip"/>
+          <xs:enumeration value="display"/>
+          <xs:enumeration value="float"/>
+          <xs:enumeration value="height"/>
+          <xs:enumeration value="left"/>
+          <xs:enumeration value="margin"/>
+          <xs:enumeration value="margin-bottom"/>
+          <xs:enumeration value="margin-left"/>
+          <xs:enumeration value="margin-right"/>
+          <xs:enumeration value="margin-top"/>
+          <xs:enumeration value="max-height"/>
+          <xs:enumeration value="max-width"/>
+          <xs:enumeration value="min-height"/>
+          <xs:enumeration value="min-width"/>
+          <xs:enumeration value="overflow"/>
+          <xs:enumeration value="overflow-x"/>
+          <xs:enumeration value="overflow-y"/>
+          <xs:enumeration value="padding"/>
+          <xs:enumeration value="padding-bottom"/>
+          <xs:enumeration value="padding-left"/>
+          <xs:enumeration value="padding-right"/>
+          <xs:enumeration value="padding-top"/>
+          <xs:enumeration value="position"/>
+          <xs:enumeration value="right"/>
+          <xs:enumeration value="top"/>
+          <xs:enumeration value="visibility"/>
+          <xs:enumeration value="width"/>
+          <xs:enumeration value="vertical-align"/>
+          <xs:enumeration value="z-index"/>
+
+          <!-- Flexible Box Layout -->
+          <xs:enumeration value="align-content"/>
+          <xs:enumeration value="align-items"/>
+          <xs:enumeration value="align-self"/>
+          <xs:enumeration value="flex"/>
+          <xs:enumeration value="flex-basis"/>
+          <xs:enumeration value="flex-direction"/>
+          <xs:enumeration value="flex-flow"/>
+          <xs:enumeration value="flex-grow"/>
+          <xs:enumeration value="flex-shrink"/>
+          <xs:enumeration value="flex-wrap"/>
+          <xs:enumeration value="justify-content"/>
+          <xs:enumeration value="order"/>
+
+          <!-- Text Properties -->
+          <xs:enumeration value="hanging-punctuation"/>
+          <xs:enumeration value="hyphens"/>
+          <xs:enumeration value="letter-spacing"/>
+          <xs:enumeration value="line-break"/>
+          <xs:enumeration value="line-height"/>
+          <xs:enumeration value="overflow-wrap"/>
+          <xs:enumeration value="tab-size"/>
+          <xs:enumeration value="text-align"/>
+          <xs:enumeration value="text-align-last"/>
+          <xs:enumeration value="text-combine-upright"/>
+          <xs:enumeration value="text-indent"/>
+          <xs:enumeration value="text-justify"/>
+          <xs:enumeration value="text-transform"/>
+          <xs:enumeration value="white-space"/>
+          <xs:enumeration value="word-break"/>
+          <xs:enumeration value="word-spacing"/>
+          <xs:enumeration value="word-wrap"/>
+
+          <!-- Text Decoration Properties -->
+          <xs:enumeration value="text-decoration"/>
+          <xs:enumeration value="text-decoration-color"/>
+          <xs:enumeration value="text-decoration-line"/>
+          <xs:enumeration value="text-decoration-style"/>
+          <xs:enumeration value="text-shadow"/>
+          <xs:enumeration value="text-underline-position"/>
+
+          <!-- Font Properties -->
+          <xs:enumeration value="@font-face"/>
+          <xs:enumeration value="@font-feature-values"/>
+          <xs:enumeration value="font"/>
+          <xs:enumeration value="font-family"/>
+          <xs:enumeration value="font-feature-settings"/>
+          <xs:enumeration value="font-kerning"/>
+          <xs:enumeration value="font-language-override"/>
+          <xs:enumeration value="font-size"/>
+          <xs:enumeration value="font-size-adjust"/>
+          <xs:enumeration value="font-stretch"/>
+          <xs:enumeration value="font-style"/>
+          <xs:enumeration value="font-synthesis"/>
+          <xs:enumeration value="font-variant"/>
+          <xs:enumeration value="font-variant-alternates"/>
+          <xs:enumeration value="font-variant-caps"/>
+          <xs:enumeration value="font-variant-east-asian"/>
+          <xs:enumeration value="font-variant-ligatures"/>
+          <xs:enumeration value="font-variant-numeric"/>
+          <xs:enumeration value="font-variant-position"/>
+          <xs:enumeration value="font-weight"/>
+
+          <!-- Writing Modes Properties -->
+          <xs:enumeration value="direction"/>
+          <xs:enumeration value="text-orientation"/>
+          <xs:enumeration value="text-combine-upright"/>
+          <xs:enumeration value="unicode-bidi"/>
+          <xs:enumeration value="writing-mode"/>
+
+          <!-- Table Properties -->
+          <xs:enumeration value="border-collapse"/>
+          <xs:enumeration value="border-spacing"/>
+          <xs:enumeration value="caption-side"/>
+          <xs:enumeration value="empty-cells"/>
+          <xs:enumeration value="table-layout"/>
+          <xs:enumeration value=""/>
+
+          <!-- Lists and Counters Properties -->
+          <xs:enumeration value="counter-increment"/>
+          <xs:enumeration value="counter-reset"/>
+          <xs:enumeration value="list-style"/>
+          <xs:enumeration value="list-style-image"/>
+          <xs:enumeration value="list-style-position"/>
+          <xs:enumeration value="list-style-type"/>
+          <xs:enumeration value=""/>
+
+          <!-- Animation Properties -->
+          <xs:enumeration value="@keyframes"/>
+          <xs:enumeration value="animation"/>
+          <xs:enumeration value="animation-delay"/>
+          <xs:enumeration value="animation-direction"/>
+          <xs:enumeration value="animation-duration"/>
+          <xs:enumeration value="animation-fill-mode"/>
+          <xs:enumeration value="animation-iteration-count"/>
+          <xs:enumeration value="animation-name"/>
+          <xs:enumeration value="animation-play-state"/>
+          <xs:enumeration value="animation-timing-function"/>
+
+          <!-- Transform Properties -->
+          <xs:enumeration value="backface-visibility"/>
+          <xs:enumeration value="perspective"/>
+          <xs:enumeration value="perspective-origin"/>
+          <xs:enumeration value="transform"/>
+          <xs:enumeration value="transform-origin"/>
+          <xs:enumeration value="transform-style"/>
+
+          <!-- Transitions Properties -->
+          <xs:enumeration value="transition"/>
+          <xs:enumeration value="transition-property"/>
+          <xs:enumeration value="transition-duration"/>
+          <xs:enumeration value="transition-timing-function"/>
+          <xs:enumeration value="transition-delay"/>
+
+          <!-- Basic User Interface Properties -->
+          <xs:enumeration value="box-sizing"/>
+          <xs:enumeration value="content"/>
+          <xs:enumeration value="cursor"/>
+          <xs:enumeration value="ime-mode"/>
+          <xs:enumeration value="nav-down"/>
+          <xs:enumeration value="nav-index"/>
+          <xs:enumeration value="nav-left"/>
+          <xs:enumeration value="nav-right"/>
+          <xs:enumeration value="nav-up"/>
+          <xs:enumeration value="outline"/>
+          <xs:enumeration value="outline-color"/>
+          <xs:enumeration value="outline-offset"/>
+          <xs:enumeration value="outline-style"/>
+          <xs:enumeration value="outline-width"/>
+          <xs:enumeration value="resize"/>
+          <xs:enumeration value="text-overflow"/>
+          <xs:enumeration value=""/>
+
+          <!-- Multi-column Layout Properties -->
+          <xs:enumeration value="break-after"/>
+          <xs:enumeration value="break-before"/>
+          <xs:enumeration value="break-inside"/>
+          <xs:enumeration value="column-count"/>
+          <xs:enumeration value="column-fill"/>
+          <xs:enumeration value="column-gap"/>
+          <xs:enumeration value="column-rule"/>
+          <xs:enumeration value="column-rule-color"/>
+          <xs:enumeration value="column-rule-style"/>
+          <xs:enumeration value="column-rule-width"/>
+          <xs:enumeration value="column-span"/>
+          <xs:enumeration value="column-width"/>
+          <xs:enumeration value="columns"/>
+          <xs:enumeration value="widows"/>
+
+          <!-- Paged Media -->
+          <xs:enumeration value="orphans"/>
+          <xs:enumeration value="page-break-after"/>
+          <xs:enumeration value="page-break-before"/>
+          <xs:enumeration value="page-break-inside"/>
+
+          <!-- Generated Content for Paged Media -->
+          <xs:enumeration value="marks"/>
+          <xs:enumeration value="quotes"/>
+          <xs:enumeration value=""/>
+
+          <!-- Filter Effects Properties -->
+          <xs:enumeration value="filter"/>
+
+          <!-- Image Values and Replaced Content -->
+          <xs:enumeration value="image-orientation"/>
+          <xs:enumeration value="image-rendering"/>
+          <xs:enumeration value="image-resolution"/>
+          <xs:enumeration value="object-fit"/>
+          <xs:enumeration value="object-position"/>
+
+          <!-- Masking Properties -->
+          <xs:enumeration value="mask"/>
+          <xs:enumeration value="mask-type"/>
+
+          <!-- Speech Properties -->
+          <xs:enumeration value="mark"/>
+          <xs:enumeration value="mark-after"/>
+          <xs:enumeration value="mark-before"/>
+          <xs:enumeration value="phonemes"/>
+          <xs:enumeration value="rest"/>
+          <xs:enumeration value="rest-after"/>
+          <xs:enumeration value="rest-before"/>
+          <xs:enumeration value="voice-balance"/>
+          <xs:enumeration value="voice-duration"/>
+          <xs:enumeration value="voice-pitch"/>
+          <xs:enumeration value="voice-pitch-range"/>
+          <xs:enumeration value="voice-rate"/>
+          <xs:enumeration value="voice-stress"/>
+          <xs:enumeration value="voice-volume"/>
+
+          <!-- Marquee Properties -->
+          <xs:enumeration value="marquee-direction"/>
+          <xs:enumeration value="marquee-play-count"/>
+          <xs:enumeration value="marquee-speed"/>
+          <xs:enumeration value="marquee-style"/>
+        </xs:restriction>
+      </xs:appinfo>
+
+    </xs:annotation>
     <xs:restriction base="xs:string"/>
     <!--<xs:restriction base="cssProperty"/>-->
   </xs:simpleType>
@@ -175,323 +461,5 @@
       </xs:element>
     </xs:choice>
   </xs:complexType>
-  
-  <!-- CSS property list -->
-  <!-- taken from http://www.w3schools.com/cssref/ -->
-  <xs:simpleType name="cssProperty">
-    <xs:restriction base="xs:string">
-      <!-- Color Properties -->
-      <xs:enumeration value="color"/>
-      <xs:enumeration value="opacity"/>
-      
-      <!-- Background and Border Properties -->
-      <xs:enumeration value="background"/>
-      <xs:enumeration value="background-attachment"/>
-      <xs:enumeration value="background-blend-mode"/>
-      <xs:enumeration value="background-color"/>
-      <xs:enumeration value="background-image"/>
-      <xs:enumeration value="background-position"/>
-      <xs:enumeration value="background-repeat"/>
-      <xs:enumeration value="background-clip"/>
-      <xs:enumeration value="background-origin"/>
-      <xs:enumeration value="background-size"/>
-      <xs:enumeration value="border"/>
-      <xs:enumeration value="border-bottom"/>
-      <xs:enumeration value="border-bottom-color"/>
-      <xs:enumeration value="border-bottom-left-radius"/>
-      <xs:enumeration value="border-bottom-right-radius"/>
-      <xs:enumeration value="border-bottom-style"/>
-      <xs:enumeration value="border-bottom-width"/>
-      <xs:enumeration value="border-color"/>
-      <xs:enumeration value="border-image"/>
-      <xs:enumeration value="border-image-outset"/>
-      <xs:enumeration value="border-image-repeat"/>
-      <xs:enumeration value="border-image-slice"/>
-      <xs:enumeration value="border-image-source"/>
-      <xs:enumeration value="border-image-width"/>
-      <xs:enumeration value="border-left"/>
-      <xs:enumeration value="border-left-color"/>
-      <xs:enumeration value="border-left-style"/>
-      <xs:enumeration value="border-left-width"/>
-      <xs:enumeration value="border-radius"/>
-      <xs:enumeration value="border-right"/>
-      <xs:enumeration value="border-right-color"/>
-      <xs:enumeration value="border-right-style"/>
-      <xs:enumeration value="border-right-width"/>
-      <xs:enumeration value="border-style"/>
-      <xs:enumeration value="border-top"/>
-      <xs:enumeration value="border-top-color"/>
-      <xs:enumeration value="border-top-left-radius"/>
-      <xs:enumeration value="border-top-right-radius"/>
-      <xs:enumeration value="border-top-style"/>
-      <xs:enumeration value="border-top-width"/>
-      <xs:enumeration value="border-width"/>
-      <xs:enumeration value="box-decoration-break"/>
-      <xs:enumeration value="box-shadow"/>
-      
-      <!-- Basic Box Properties -->
-      <xs:enumeration value="bottom"/>
-      <xs:enumeration value="clear"/>
-      <xs:enumeration value="clip"/>
-      <xs:enumeration value="display"/>
-      <xs:enumeration value="float"/>
-      <xs:enumeration value="height"/>
-      <xs:enumeration value="left"/>
-      <xs:enumeration value="margin"/>
-      <xs:enumeration value="margin-bottom"/>
-      <xs:enumeration value="margin-left"/>
-      <xs:enumeration value="margin-right"/>
-      <xs:enumeration value="margin-top"/>
-      <xs:enumeration value="max-height"/>
-      <xs:enumeration value="max-width"/>
-      <xs:enumeration value="min-height"/>
-      <xs:enumeration value="min-width"/>
-      <xs:enumeration value="overflow"/>
-      <xs:enumeration value="overflow-x"/>
-      <xs:enumeration value="overflow-y"/>
-      <xs:enumeration value="padding"/>
-      <xs:enumeration value="padding-bottom"/>
-      <xs:enumeration value="padding-left"/>
-      <xs:enumeration value="padding-right"/>
-      <xs:enumeration value="padding-top"/>
-      <xs:enumeration value="position"/>
-      <xs:enumeration value="right"/>
-      <xs:enumeration value="top"/>
-      <xs:enumeration value="visibility"/>
-      <xs:enumeration value="width"/>
-      <xs:enumeration value="vertical-align"/>
-      <xs:enumeration value="z-index"/>
-      
-      <!-- Flexible Box Layout -->
-      <xs:enumeration value="align-content"/>
-      <xs:enumeration value="align-items"/>
-      <xs:enumeration value="align-self"/>
-      <xs:enumeration value="flex"/>
-      <xs:enumeration value="flex-basis"/>
-      <xs:enumeration value="flex-direction"/>
-      <xs:enumeration value="flex-flow"/>
-      <xs:enumeration value="flex-grow"/>
-      <xs:enumeration value="flex-shrink"/>
-      <xs:enumeration value="flex-wrap"/>
-      <xs:enumeration value="justify-content"/>
-      <xs:enumeration value="order"/>
-      
-      <!-- Text Properties -->
-      <xs:enumeration value="hanging-punctuation"/>
-      <xs:enumeration value="hyphens"/>
-      <xs:enumeration value="letter-spacing"/>
-      <xs:enumeration value="line-break"/>
-      <xs:enumeration value="line-height"/>
-      <xs:enumeration value="overflow-wrap"/>
-      <xs:enumeration value="tab-size"/>
-      <xs:enumeration value="text-align"/>
-      <xs:enumeration value="text-align-last"/>
-      <xs:enumeration value="text-combine-upright"/>
-      <xs:enumeration value="text-indent"/>
-      <xs:enumeration value="text-justify"/>
-      <xs:enumeration value="text-transform"/>
-      <xs:enumeration value="white-space"/>
-      <xs:enumeration value="word-break"/>
-      <xs:enumeration value="word-spacing"/>
-      <xs:enumeration value="word-wrap"/>
-      
-      <!-- Text Decoration Properties -->
-      <xs:enumeration value="text-decoration"/>
-      <xs:enumeration value="text-decoration-color"/>
-      <xs:enumeration value="text-decoration-line"/>
-      <xs:enumeration value="text-decoration-style"/>
-      <xs:enumeration value="text-shadow"/>
-      <xs:enumeration value="text-underline-position"/>
-      
-      <!-- Font Properties -->
-      <xs:enumeration value="@font-face"/>
-      <xs:enumeration value="@font-feature-values"/>
-      <xs:enumeration value="font"/>
-      <xs:enumeration value="font-family"/>
-      <xs:enumeration value="font-feature-settings"/>
-      <xs:enumeration value="font-kerning"/>
-      <xs:enumeration value="font-language-override"/>
-      <xs:enumeration value="font-size"/>
-      <xs:enumeration value="font-size-adjust"/>
-      <xs:enumeration value="font-stretch"/>
-      <xs:enumeration value="font-style"/>
-      <xs:enumeration value="font-synthesis"/>
-      <xs:enumeration value="font-variant"/>
-      <xs:enumeration value="font-variant-alternates"/>
-      <xs:enumeration value="font-variant-caps"/>
-      <xs:enumeration value="font-variant-east-asian"/>
-      <xs:enumeration value="font-variant-ligatures"/>
-      <xs:enumeration value="font-variant-numeric"/>
-      <xs:enumeration value="font-variant-position"/>
-      <xs:enumeration value="font-weight"/>
-      
-      <!-- Writing Modes Properties -->
-      <xs:enumeration value="direction"/>
-      <xs:enumeration value="text-orientation"/>
-      <xs:enumeration value="text-combine-upright"/>
-      <xs:enumeration value="unicode-bidi"/>
-      <xs:enumeration value="writing-mode"/>
-      
-      <!-- Table Properties -->
-      <xs:enumeration value="border-collapse"/>
-      <xs:enumeration value="border-spacing"/>
-      <xs:enumeration value="caption-side"/>
-      <xs:enumeration value="empty-cells"/>
-      <xs:enumeration value="table-layout"/>
-      <xs:enumeration value=""/>
-      
-      <!-- Lists and Counters Properties -->
-      <xs:enumeration value="counter-increment"/>
-      <xs:enumeration value="counter-reset"/>
-      <xs:enumeration value="list-style"/>
-      <xs:enumeration value="list-style-image"/>
-      <xs:enumeration value="list-style-position"/>
-      <xs:enumeration value="list-style-type"/>
-      <xs:enumeration value=""/>
-      
-      <!-- Animation Properties -->
-      <xs:enumeration value="@keyframes"/>
-      <xs:enumeration value="animation"/>
-      <xs:enumeration value="animation-delay"/>
-      <xs:enumeration value="animation-direction"/>
-      <xs:enumeration value="animation-duration"/>
-      <xs:enumeration value="animation-fill-mode"/>
-      <xs:enumeration value="animation-iteration-count"/>
-      <xs:enumeration value="animation-name"/>
-      <xs:enumeration value="animation-play-state"/>
-      <xs:enumeration value="animation-timing-function"/>
-      
-      <!-- Transform Properties -->
-      <xs:enumeration value="backface-visibility"/>
-      <xs:enumeration value="perspective"/>
-      <xs:enumeration value="perspective-origin"/>
-      <xs:enumeration value="transform"/>
-      <xs:enumeration value="transform-origin"/>
-      <xs:enumeration value="transform-style"/>
-      
-      <!-- Transitions Properties -->
-      <xs:enumeration value="transition"/>
-      <xs:enumeration value="transition-property"/>
-      <xs:enumeration value="transition-duration"/>
-      <xs:enumeration value="transition-timing-function"/>
-      <xs:enumeration value="transition-delay"/>
-      
-      <!-- Basic User Interface Properties -->
-      <xs:enumeration value="box-sizing"/>
-      <xs:enumeration value="content"/>
-      <xs:enumeration value="cursor"/>
-      <xs:enumeration value="ime-mode"/>
-      <xs:enumeration value="nav-down"/>
-      <xs:enumeration value="nav-index"/>
-      <xs:enumeration value="nav-left"/>
-      <xs:enumeration value="nav-right"/>
-      <xs:enumeration value="nav-up"/>
-      <xs:enumeration value="outline"/>
-      <xs:enumeration value="outline-color"/>
-      <xs:enumeration value="outline-offset"/>
-      <xs:enumeration value="outline-style"/>
-      <xs:enumeration value="outline-width"/>
-      <xs:enumeration value="resize"/>
-      <xs:enumeration value="text-overflow"/>
-      <xs:enumeration value=""/>
-      
-      <!-- Multi-column Layout Properties -->
-      <xs:enumeration value="break-after"/>
-      <xs:enumeration value="break-before"/>
-      <xs:enumeration value="break-inside"/>
-      <xs:enumeration value="column-count"/>
-      <xs:enumeration value="column-fill"/>
-      <xs:enumeration value="column-gap"/>
-      <xs:enumeration value="column-rule"/>
-      <xs:enumeration value="column-rule-color"/>
-      <xs:enumeration value="column-rule-style"/>
-      <xs:enumeration value="column-rule-width"/>
-      <xs:enumeration value="column-span"/>
-      <xs:enumeration value="column-width"/>
-      <xs:enumeration value="columns"/>
-      <xs:enumeration value="widows"/>
-      
-      <!-- Paged Media -->
-      <xs:enumeration value="orphans"/>
-      <xs:enumeration value="page-break-after"/>
-      <xs:enumeration value="page-break-before"/>
-      <xs:enumeration value="page-break-inside"/>
-      
-      <!-- Generated Content for Paged Media -->
-      <xs:enumeration value="marks"/>
-      <xs:enumeration value="quotes"/>
-      <xs:enumeration value=""/>
-      
-      <!-- Filter Effects Properties -->
-      <xs:enumeration value="filter"/>
-      
-      <!-- Image Values and Replaced Content -->
-      <xs:enumeration value="image-orientation"/>
-      <xs:enumeration value="image-rendering"/>
-      <xs:enumeration value="image-resolution"/>
-      <xs:enumeration value="object-fit"/>
-      <xs:enumeration value="object-position"/>
-      
-      <!-- Masking Properties -->
-      <xs:enumeration value="mask"/>
-      <xs:enumeration value="mask-type"/>
-      
-      <!-- Speech Properties -->
-      <xs:enumeration value="mark"/>
-      <xs:enumeration value="mark-after"/>
-      <xs:enumeration value="mark-before"/>
-      <xs:enumeration value="phonemes"/>
-      <xs:enumeration value="rest"/>
-      <xs:enumeration value="rest-after"/>
-      <xs:enumeration value="rest-before"/>
-      <xs:enumeration value="voice-balance"/>
-      <xs:enumeration value="voice-duration"/>
-      <xs:enumeration value="voice-pitch"/>
-      <xs:enumeration value="voice-pitch-range"/>
-      <xs:enumeration value="voice-rate"/>
-      <xs:enumeration value="voice-stress"/>
-      <xs:enumeration value="voice-volume"/>
-      
-      <!-- Marquee Properties -->
-      <xs:enumeration value="marquee-direction"/>
-      <xs:enumeration value="marquee-play-count"/>
-      <xs:enumeration value="marquee-speed"/>
-      <xs:enumeration value="marquee-style"/>
-      
-      <!-- TODO missing stuff (Exploration) !? -->
-      <!-- @page -->
-      <xs:enumeration value="size"/>
-      <!-- @font-face -->
-      <xs:enumeration value="src"/>
-
-      <!-- Other -->
-      <!--
-      <xs:enumeration value="pointer-events"/>
-      <xs:enumeration value="text-rendering"/>
-      <xs:enumeration value="unicode-range"/>
-      
-      <xs:enumeration value="-moz-border-top-colors"/>
-      <xs:enumeration value="-moz-border-bottom-colors"/>
-      <xs:enumeration value="-moz-border-left-colors"/>
-      <xs:enumeration value="-moz-border-right-colors"/>
-      <xs:enumeration value="-moz-transition-property"/>
-      <xs:enumeration value="-moz-user-select"/>
-      <xs:enumeration value="-moz-border-right-colors"/>
-      <xs:enumeration value="-moz-transition-duration"/>
-      <xs:enumeration value="-moz-border-radius"/>
-      <xs:enumeration value="-moz-box-shadow"/>
- 
-      <xs:enumeration value="-o-transition-property"/>
-      <xs:enumeration value="-o-transition-duration"/>     
-      
-      <xs:enumeration value="-webkit-transition-duration"/>
-      <xs:enumeration value="-webkit-transition-property"/>
-      <xs:enumeration value="-webkit-border-radius"/>
-      <xs:enumeration value="-webkit-box-shadow"/>
-        -->
-      
-    </xs:restriction>
-  </xs:simpleType>
-
 
 </xs:schema>

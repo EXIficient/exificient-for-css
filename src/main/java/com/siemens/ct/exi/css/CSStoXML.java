@@ -337,6 +337,9 @@ public class CSStoXML {
 		printStartElement(th, CSSConstants.URI, primitiveTagNames[primitiveType]);
 		
 		switch (primitiveType) {
+		case CSSPrimitiveValue.CSS_UNKNOWN:
+			printCharacters(th, primValue.getCssText());
+			break;
 		case CSSPrimitiveValue.CSS_NUMBER:
 		case CSSPrimitiveValue.CSS_PERCENTAGE:
 		case CSSPrimitiveValue.CSS_EMS:
@@ -358,20 +361,12 @@ public class CSStoXML {
 			// float value
 			printCharacters(th, primValue.getFloatValue(primitiveType));
 			break;
-		case CSSPrimitiveValue.CSS_UNKNOWN:
 		case CSSPrimitiveValue.CSS_STRING:
 		case CSSPrimitiveValue.CSS_URI:
 		case CSSPrimitiveValue.CSS_IDENT:
 		case CSSPrimitiveValue.CSS_ATTR:
 			// string value
-//			try {
-				printCharacters(th, primValue.getStringValue());
-//			} catch (Exception e) {
-//				// Note: Snapshot version cssparser-0.9.20-20160721.090615-5.jar resolves issue
-//				// Note: in some strange cases getStringValue() does not work even if primitiveType is string
-//				printCharacters(th, primValue.toString());
-//				// IF there is an issue the exception is thrown once again
-//			}
+			printCharacters(th, primValue.getStringValue());
 			break;
 		case CSSPrimitiveValue.CSS_COUNTER:
 			Counter counter = primValue.getCounterValue();

@@ -6,16 +6,16 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.siemens.ct.exi.EXIBodyDecoder;
-import com.siemens.ct.exi.EXIFactory;
-import com.siemens.ct.exi.EXIStreamDecoder;
-import com.siemens.ct.exi.context.QNameContext;
-import com.siemens.ct.exi.exceptions.EXIException;
-import com.siemens.ct.exi.grammars.event.EventType;
-import com.siemens.ct.exi.values.FloatValue;
-import com.siemens.ct.exi.values.ListValue;
-import com.siemens.ct.exi.values.Value;
-import com.siemens.ct.exi.values.ValueType;
+import com.siemens.ct.exi.core.EXIBodyDecoder;
+import com.siemens.ct.exi.core.EXIFactory;
+import com.siemens.ct.exi.core.EXIStreamDecoder;
+import com.siemens.ct.exi.core.context.QNameContext;
+import com.siemens.ct.exi.core.exceptions.EXIException;
+import com.siemens.ct.exi.core.grammars.event.EventType;
+import com.siemens.ct.exi.core.values.FloatValue;
+import com.siemens.ct.exi.core.values.ListValue;
+import com.siemens.ct.exi.core.values.Value;
+import com.siemens.ct.exi.core.values.ValueType;
 
 public class EXItoCSS {
 

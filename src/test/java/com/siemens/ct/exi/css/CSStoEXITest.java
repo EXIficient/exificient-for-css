@@ -27,8 +27,8 @@ import org.w3c.css.sac.InputSource;
 import org.w3c.dom.css.CSSStyleSheet;
 import org.xml.sax.SAXException;
 
-import com.siemens.ct.exi.EXIFactory;
-import com.siemens.ct.exi.exceptions.EXIException;
+import com.siemens.ct.exi.core.EXIFactory;
+import com.siemens.ct.exi.core.exceptions.EXIException;
 import com.steadystate.css.parser.CSSOMParser;
 import com.steadystate.css.parser.SACParserCSS3;
 import com.yahoo.platform.yui.compressor.CssCompressor;

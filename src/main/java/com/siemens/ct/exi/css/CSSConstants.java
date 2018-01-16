@@ -4,13 +4,13 @@ import java.io.InputStream;
 
 import javax.xml.namespace.QName;
 
-import com.siemens.ct.exi.CodingMode;
-import com.siemens.ct.exi.Constants;
-import com.siemens.ct.exi.EXIFactory;
-import com.siemens.ct.exi.FidelityOptions;
-import com.siemens.ct.exi.GrammarFactory;
-import com.siemens.ct.exi.grammars.Grammars;
-import com.siemens.ct.exi.helpers.DefaultEXIFactory;
+import com.siemens.ct.exi.core.CodingMode;
+import com.siemens.ct.exi.core.Constants;
+import com.siemens.ct.exi.core.EXIFactory;
+import com.siemens.ct.exi.core.FidelityOptions;
+import com.siemens.ct.exi.core.grammars.Grammars;
+import com.siemens.ct.exi.core.helpers.DefaultEXIFactory;
+import com.siemens.ct.exi.grammars.GrammarFactory;
 
 public class CSSConstants {
 	

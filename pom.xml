@@ -40,7 +40,7 @@
 		<connection>scm:git:git://github.com/EXIficient/exificient-for-css.git</connection>
 		<developerConnection>scm:git:https://github.com/EXIficient/exificient-for-css.git</developerConnection>
 		<url>https://github.com/EXIficient/exificient-for-css</url>
-		<tag>HEAD</tag>
+		<tag>v0.9.7</tag>
 	</scm>
 
 	<dependencies>
@@ -65,6 +65,12 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.yahoo.platform.yui</groupId>
+			<artifactId>yuicompressor</artifactId>
+			<version>2.4.8</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- Brotli Test comparisons -->

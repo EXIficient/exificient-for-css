@@ -1,7 +1,8 @@
 language: java
 jdk:
 - oraclejdk8
-- oraclejdk7
+- openjdk7
+#- oraclejdk7
 #- openjdk6 # jbrotli does not support Java6
 env:
   global:

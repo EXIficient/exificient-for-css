@@ -13,9 +13,9 @@
   <classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1.1/activation-1.1.1.jar" sourcepath="M2_REPO/javax/activation/activation/1.1.1/activation-1.1.1-sources.jar"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="var" path="M2_REPO/org/w3c/css/sac/1.3/sac-1.3.jar" sourcepath="M2_REPO/org/w3c/css/sac/1.3/sac-1.3-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/net/sourceforge/cssparser/cssparser/0.9.25/cssparser-0.9.25.jar" sourcepath="M2_REPO/net/sourceforge/cssparser/cssparser/0.9.25/cssparser-0.9.25-sources.jar">
+  <classpathentry kind="var" path="M2_REPO/net/sourceforge/cssparser/cssparser/0.9.26/cssparser-0.9.26.jar" sourcepath="M2_REPO/net/sourceforge/cssparser/cssparser/0.9.26/cssparser-0.9.26-sources.jar">
     <attributes>
-      <attribute value="jar:file:/C:/Users/mchn4310/.m2/repository/net/sourceforge/cssparser/cssparser/0.9.25/cssparser-0.9.25-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="jar:file:/C:/Users/mchn4310/.m2/repository/net/sourceforge/cssparser/cssparser/0.9.26/cssparser-0.9.26-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/com/siemens/ct/exi/exificient/1.0.2-SNAPSHOT/exificient-1.0.2-SNAPSHOT.jar" sourcepath="M2_REPO/com/siemens/ct/exi/exificient/1.0.2-SNAPSHOT/exificient-1.0.2-SNAPSHOT-sources.jar">
